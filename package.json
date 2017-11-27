@@ -1,0 +1,58 @@
+{
+  "name": "grunt-webfonts",
+  "version": "1.0.0",
+  "description": "SVG to webfont converter for Grunt",
+  "homepage": "https://github.com/L2jLiga/grunt-webfonts",
+  "main": "tasks/index.js",
+  "repository": "git@github.com:L2jLiga/grunt-webfonts.git",
+  "author": "L2jLiga <L2jLiga@mail.ru>",
+  "license": "MIT",
+  "scripts": {
+    "build": "grunt build",
+    "lint": "eslint ./src/**/*.js --fix"
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "files": [
+    "tasks/**/*.js"
+  ],
+  "maintainers": [
+    {
+      "name": "Andrey Chalkin",
+      "email": "l2jliga@mail.ru"
+    }
+  ],
+  "devDependencies": {
+    "babel-core": "7.0.0-beta.3",
+    "babel-preset-env": "7.0.0-beta.3",
+    "babel-preset-minify": "~0.2.0",
+    "eslint": "^4.12.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-config-nodejs": "^2.0.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^7.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-eslint": "^20.1.0",
+    "load-grunt-tasks": "^3.5.2",
+    "xml2js": "^0.4.19"
+  },
+  "peerDependencies": {
+    "grunt": ">=1.0.0"
+  },
+  "keywords": [
+    "gruntplugin",
+    "font",
+    "webfont",
+    "fontforge",
+    "font-face",
+    "woff",
+    "woff2",
+    "ttf",
+    "svg",
+    "eot",
+    "truetype",
+    "css",
+    "icon"
+  ]
+}
