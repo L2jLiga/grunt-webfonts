@@ -16,7 +16,7 @@ module.exports = function nodeEngine(o, allDone) {
     require('child_process').exec,
   ];
 
-  const [StringDecoder, svgicons2svgfont, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [
+  const [StringDecoder, SVGIcon2SVGFontStream, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [
     require('string_decoder').StringDecoder,
     require('svgicons2svgfont'),
     require('svg2ttf'),
@@ -36,8 +36,11 @@ module.exports = function nodeEngine(o, allDone) {
     svg(done) {
       let font = '';
       const decoder = new StringDecoder('utf8');
+
       svgFilesToStreams(o.files, (streams) => {
-        const stream = svgicons2svgfont(streams, {
+        const stream = new MemoryStream();
+
+        const fontStream = new SVGIcon2SVGFontStream({
           fontName: o.fontFamilyName,
           fontHeight: o.fontHeight,
           descent: o.descent,
@@ -47,6 +50,8 @@ module.exports = function nodeEngine(o, allDone) {
           error: logger.error.bind(logger),
         });
 
+        fontStream.pipe(stream);
+
         stream.on('data', (chunk) => {
           font += decoder.write(chunk);
         });
@@ -55,6 +60,21 @@ module.exports = function nodeEngine(o, allDone) {
           fonts.svg = font;
           done(font);
         });
+
+        streams.forEach((glyph) => {
+          const glyphStream = new MemoryStream(glyph.stream);
+
+          glyphStream.metadata = {
+            unicode: [
+              '\\u' + glyph.codepoint.toString().toUpperCase(),
+            ],
+            name: glyph.name,
+          };
+
+          fontStream.write(glyphStream);
+        });
+
+        fontStream.end();
       });
     },
 

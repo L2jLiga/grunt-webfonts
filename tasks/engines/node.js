@@ -8,7 +8,7 @@
 
 module.exports = function nodeEngine(o, allDone) {
   const [fs, path, async, temp, exec] = [require('fs'), require('path'), require('async'), require('temp'), require('child_process').exec];
-  const [StringDecoder, svgicons2svgfont, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [require('string_decoder').StringDecoder, require('svgicons2svgfont'), require('svg2ttf'), require('ttf2eot'), require('ttf2woff'), require('svgo'), require('memorystream')];
+  const [StringDecoder, SVGIcon2SVGFontStream, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [require('string_decoder').StringDecoder, require('svgicons2svgfont'), require('svg2ttf'), require('ttf2eot'), require('ttf2woff'), require('svgo'), require('memorystream')];
   const logger = o.logger;
 
   const wf = require('../util/util'); // @todo Ligatures
@@ -20,7 +20,8 @@ module.exports = function nodeEngine(o, allDone) {
       let font = '';
       const decoder = new StringDecoder('utf8');
       svgFilesToStreams(o.files, streams => {
-        const stream = svgicons2svgfont(streams, {
+        const stream = new MemoryStream();
+        const fontStream = new SVGIcon2SVGFontStream({
           fontName: o.fontFamilyName,
           fontHeight: o.fontHeight,
           descent: o.descent,
@@ -29,6 +30,7 @@ module.exports = function nodeEngine(o, allDone) {
           log: logger.verbose.bind(logger),
           error: logger.error.bind(logger)
         });
+        fontStream.pipe(stream);
         stream.on('data', chunk => {
           font += decoder.write(chunk);
         });
@@ -36,6 +38,15 @@ module.exports = function nodeEngine(o, allDone) {
           fonts.svg = font;
           done(font);
         });
+        streams.forEach(glyph => {
+          const glyphStream = new MemoryStream(glyph.stream);
+          glyphStream.metadata = {
+            unicode: ['\\u' + glyph.codepoint.toString().toUpperCase()],
+            name: glyph.name
+          };
+          fontStream.write(glyphStream);
+        });
+        fontStream.end();
       });
     },
 
