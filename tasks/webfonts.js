@@ -615,7 +615,7 @@ module.exports = function webFonts(grunt) {
 
 
     function option(map, key) {
-      return map[key in map ? key : '.default'];
+      return map[key in map ? key : '_default'];
     }
     /**
      * Find next unused codepoint.
@@ -806,6 +806,7 @@ module.exports = function webFonts(grunt) {
 
     function getCssFilePath(stylesheet) {
       const cssFilePrefix = option(wf.cssFilePrefixes, stylesheet);
+      grunt.log.error(cssFilePrefix);
       return path.join(option(defaultOptions.destCssPaths, stylesheet), cssFilePrefix + defaultOptions.fontBaseName + '.' + stylesheet);
     }
     /**
