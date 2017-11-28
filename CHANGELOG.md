@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Released]
 
-## 1.0.0 &ndash 2017-11-28
+## 1.0.2 &ndash; 2017-11-28
+### Fixes
++ Added all needed files for correctly work
++ Fixed fatal issue with node engine
+
+## 1.0.0 &ndash; 2017-11-28
+### Changes
 + Migration to Grunt 1.0.0
 + Migration to ES6+
 + Migration to Node 6.9+

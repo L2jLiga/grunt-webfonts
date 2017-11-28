@@ -119,7 +119,7 @@ module.exports = function webFonts(grunt) {
       order: optionToArray(options.order, wf.fontFormats),
       embed: options.embed === true ? ['woff'] : optionToArray(options.embed, false),
       rename: options.rename || path.basename,
-      engine: options.engine || 'fontforge',
+      engine: options.engine || 'node',
       autoHint: options.autoHint !== false,
       codepoints: options.codepoints,
       codepointsFile: options.codepointsFile,

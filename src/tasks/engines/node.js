@@ -13,7 +13,7 @@ module.exports = function nodeEngine(o, allDone) {
     require('path'),
     require('async'),
     require('temp'),
-    require('exec'),
+    require('child_process').exec,
   ];
 
   const [StringDecoder, svgicons2svgfont, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [

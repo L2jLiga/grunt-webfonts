@@ -7,7 +7,7 @@
  */
 
 module.exports = function nodeEngine(o, allDone) {
-  const [fs, path, async, temp, exec] = [require('fs'), require('path'), require('async'), require('temp'), require('exec')];
+  const [fs, path, async, temp, exec] = [require('fs'), require('path'), require('async'), require('temp'), require('child_process').exec];
   const [StringDecoder, svgicons2svgfont, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [require('string_decoder').StringDecoder, require('svgicons2svgfont'), require('svg2ttf'), require('ttf2eot'), require('ttf2woff'), require('svgo'), require('memorystream')];
   const logger = o.logger;
 
