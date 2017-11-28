@@ -1,11 +1,16 @@
 {
-  "name": "grunt-webfonts",
   "version": "1.0.0",
+  "name": "grunt-webfonts",
   "description": "SVG to webfont converter for Grunt",
   "homepage": "https://github.com/L2jLiga/grunt-webfonts",
-  "main": "tasks/index.js",
   "repository": "git@github.com:L2jLiga/grunt-webfonts.git",
   "author": "L2jLiga <L2jLiga@mail.ru>",
+  "maintainers": [
+    {
+      "name": "Andrey Chalkin",
+      "email": "l2jliga@mail.ru"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "build": "grunt build",
@@ -17,12 +22,21 @@
   "files": [
     "tasks/**/*.js"
   ],
-  "maintainers": [
-    {
-      "name": "Andrey Chalkin",
-      "email": "l2jliga@mail.ru"
-    }
-  ],
+  "main": "tasks/webfonts.js",
+  "dependencies": {
+    "async": "^2.6.0",
+    "chalk": "^2.3.0",
+    "glob": "^7.1.2",
+    "lodash": "^4.17.4",
+    "memorystream": "^0.3.1",
+    "mkdirp": "^0.5.1",
+    "svg2ttf": "^4.1.0",
+    "svgicons2svgfont": "^7.0.2",
+    "svgo": "^1.0.3",
+    "temp": "^0.8.3",
+    "ttf2eot": "^2.0.0",
+    "ttf2woff": "^2.0.1"
+  },
   "devDependencies": {
     "babel-core": "7.0.0-beta.3",
     "babel-preset-env": "7.0.0-beta.3",
