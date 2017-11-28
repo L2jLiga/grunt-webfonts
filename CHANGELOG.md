@@ -5,13 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [Released]
+
+## 1.0.3 &ndash; 2017-11-28
 ### Changes
 + Update SVGO to `^1.0.3`
 
 ### Fixes
 + Fixed output stylesheet name
-
-## [Released]
 
 ## 1.0.2 &ndash; 2017-11-28
 ### Fixes
