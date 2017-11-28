@@ -39,9 +39,9 @@ module.exports = function nodeEngine(o, allDone) {
           done(font);
         });
         streams.forEach(glyph => {
-          const glyphStream = new MemoryStream(glyph.stream);
+          const glyphStream = glyph.stream;
           glyphStream.metadata = {
-            unicode: ['\\u' + glyph.codepoint.toString().toUpperCase()],
+            unicode: [String.fromCharCode(glyph.codepoint)],
             name: glyph.name
           };
           fontStream.write(glyphStream);

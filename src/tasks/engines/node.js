@@ -62,11 +62,11 @@ module.exports = function nodeEngine(o, allDone) {
         });
 
         streams.forEach((glyph) => {
-          const glyphStream = new MemoryStream(glyph.stream);
+          const glyphStream = glyph.stream;
 
           glyphStream.metadata = {
             unicode: [
-              '\\u' + glyph.codepoint.toString().toUpperCase(),
+              String.fromCharCode(glyph.codepoint),
             ],
             name: glyph.name,
           };
