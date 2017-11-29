@@ -28,3 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 + Migration to Grunt 1.0.0
 + Migration to ES6+
 + Migration to Node 6.9+
+
+### Removed
++ FontForge engine
++ Tests (because they didn't work correctly)
