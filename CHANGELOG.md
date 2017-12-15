@@ -5,11 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Added
-+ Support fontForge engine
-+ Added `centerHorizontally` option
 
 ## [Released]
+## 1.0.6 &ndash; 2017-12-15
+### Added
++ Support fontForge engine
++ Added `centerHorizontally` option (only `node` engine)
+
 ## 1.0.5 &ndash; 2017-12-15
 ### Changes
 + Update svgicons2svgfont to `^8.0.0`

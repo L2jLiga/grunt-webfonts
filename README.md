@@ -383,6 +383,8 @@ Type: `boolean` Default: `false`
 
 Calculate the bounds of a glyph and center it horizontally.
 
+Font rendering engine: `node`.
+
 #### normalize
 
 Type: `boolean` Default: `false`
