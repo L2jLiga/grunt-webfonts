@@ -24,7 +24,7 @@
   ],
   "main": "tasks/webfonts.js",
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^2.6.0",
     "chalk": "^2.3.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.4",
