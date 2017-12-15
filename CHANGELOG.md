@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 + Support fontForge engine
++ Added `centerHorizontally` option
 
 ## [Released]
 ## 1.0.5 &ndash; 2017-12-15

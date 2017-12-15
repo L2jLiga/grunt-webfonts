@@ -1,3 +1,4 @@
 - [X] Add FontForge engine
 - [X] Rewrite README.md
 - [ ] Add functionality tests
+- [ ] Separate options to groups

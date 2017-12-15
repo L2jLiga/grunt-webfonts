@@ -11,8 +11,7 @@ module.exports = function nodeEngine(o, allDone) {
   const [StringDecoder, SVGIcon2SVGFontStream, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [require('string_decoder').StringDecoder, require('svgicons2svgfont'), require('svg2ttf'), require('ttf2eot'), require('ttf2woff'), require('svgo'), require('memorystream')];
   const logger = o.logger;
 
-  const wf = require('../util/util'); // @todo Ligatures
-
+  const wf = require('../util/util');
 
   const fonts = {};
   const generators = {
@@ -25,6 +24,7 @@ module.exports = function nodeEngine(o, allDone) {
           fontName: o.fontFamilyName,
           fontHeight: o.fontHeight,
           descent: o.descent,
+          centerHorizontally: o.centerHorizontally,
           normalize: o.normalize,
           round: o.round,
           log: logger.verbose.bind(logger),
@@ -93,7 +93,7 @@ module.exports = function nodeEngine(o, allDone) {
   const steps = []; // Font types
 
   const typesToGenerate = o.types.slice();
-  if (o.types.indexOf('woff2') !== -1 && o.types.indexOf('ttf' === -1)) typesToGenerate.push('ttf');
+  if (o.types.indexOf('woff2') !== -1 && o.types.indexOf('ttf') === -1) typesToGenerate.push('ttf');
   typesToGenerate.forEach(type => {
     steps.push(createFontWriter(type));
   }); // Run!
@@ -131,7 +131,7 @@ module.exports = function nodeEngine(o, allDone) {
   /**
    * Convert svg files to streams
    *
-   * @param {File} files
+   * @param {Array} files
    * @param {Function} done
    */
 

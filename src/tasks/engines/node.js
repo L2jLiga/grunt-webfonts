@@ -29,8 +29,6 @@ module.exports = function nodeEngine(o, allDone) {
   const logger = o.logger;
   const wf = require('../util/util');
 
-  // @todo Ligatures
-
   const fonts = {};
   const generators = {
     svg(done) {
@@ -44,6 +42,7 @@ module.exports = function nodeEngine(o, allDone) {
           fontName: o.fontFamilyName,
           fontHeight: o.fontHeight,
           descent: o.descent,
+          centerHorizontally: o.centerHorizontally,
           normalize: o.normalize,
           round: o.round,
           log: logger.verbose.bind(logger),
@@ -82,11 +81,13 @@ module.exports = function nodeEngine(o, allDone) {
       getFont('svg', (svgFont) => {
         let font = svg2ttf(svgFont, {});
         font = new Buffer(font.buffer);
+
         autohintTtfFont(font, (hintedFont) => {
           // ttfautohint is optional
           if (hintedFont) {
             font = hintedFont;
           }
+
           fonts.ttf = font;
           done(font);
         });
@@ -121,7 +122,9 @@ module.exports = function nodeEngine(o, allDone) {
 
   // Font types
   const typesToGenerate = o.types.slice();
-  if (o.types.indexOf('woff2') !== -1 && o.types.indexOf('ttf' === -1)) typesToGenerate.push('ttf');
+
+  if (o.types.indexOf('woff2') !== -1 && o.types.indexOf('ttf') === -1) typesToGenerate.push('ttf');
+
   typesToGenerate.forEach((type) => {
     steps.push(createFontWriter(type));
   });
@@ -160,7 +163,7 @@ module.exports = function nodeEngine(o, allDone) {
   /**
    * Convert svg files to streams
    *
-   * @param {File} files
+   * @param {Array} files
    * @param {Function} done
    */
   function svgFilesToStreams(files, done) {

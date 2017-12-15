@@ -377,6 +377,12 @@ Type: `boolean` Default: `true`
 
 If `false` the SVGO optimization will not be used. This is useful in cases where the optimizer will produce faulty web fonts by removing relevant SVG paths or attributes.
 
+#### centerHorizontally
+
+Type: `boolean` Default: `false`
+
+Calculate the bounds of a glyph and center it horizontally.
+
 #### normalize
 
 Type: `boolean` Default: `false`
