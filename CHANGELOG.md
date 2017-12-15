@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changes
++ Update svgicons2svgfont to `^8.0.0`
 
 ## [Released]
 ## 1.0.4 &ndash; 2017-11-28
@@ -22,6 +24,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixes
 + Added all needed files for correctly work
 + Fixed fatal issue with node engine
+
+## 1.0.1 &ndash; 2017-11-28
+### Changes
++ Downgrade packages
 
 ## 1.0.0 &ndash; 2017-11-28
 ### Changes
