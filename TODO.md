@@ -1,2 +1,2 @@
-- [ ] Add FontForge engine
+- [X] Add FontForge engine
 - [ ] Add functionality tests
