@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 + Update svgicons2svgfont to `^8.0.0`
 + Update ttf2woff to `^2.0.1`
 + Update ttf2eot to `^2.0.0`
++ Update chalk to `^2.3.0`
 
 ## [Released]
 ## 1.0.4 &ndash; 2017-11-28
