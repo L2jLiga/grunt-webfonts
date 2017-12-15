@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changes
 + Update svgicons2svgfont to `^8.0.0`
++ Update ttf2woff to `^2.0.1`
 
 ## [Released]
 ## 1.0.4 &ndash; 2017-11-28
