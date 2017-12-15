@@ -1,3 +1,3 @@
 - [X] Add FontForge engine
-- [ ] Rewrite README.md
+- [X] Rewrite README.md
 - [ ] Add functionality tests
