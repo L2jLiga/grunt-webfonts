@@ -14,7 +14,9 @@
   "license": "MIT",
   "scripts": {
     "build": "grunt build",
-    "lint": "eslint ./src/**/*.js --fix"
+    "lint": "eslint ./src/**/*.js --fix",
+    "prepublish": "npm run build",
+    "postpublish": "git push & git push --tags"
   },
   "engines": {
     "node": ">=6.5.0"
