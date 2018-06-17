@@ -3,14 +3,7 @@
   "name": "grunt-webfonts",
   "description": "SVG to webfont converter for Grunt",
   "homepage": "https://github.com/L2jLiga/grunt-webfonts",
-  "repository": "git@github.com:L2jLiga/grunt-webfonts.git",
-  "author": "L2jLiga <L2jLiga@mail.ru>",
-  "maintainers": [
-    {
-      "name": "Andrey Chalkin",
-      "email": "l2jliga@mail.ru"
-    }
-  ],
+  "author": "L2jLiga",
   "license": "MIT",
   "scripts": {
     "build": "grunt build",
@@ -19,12 +12,16 @@
     "postpublish": "git push & git push --tags"
   },
   "engines": {
-    "node": ">=6.5.0"
+    "node": ">= 6.5.0"
   },
   "files": [
     "tasks/**"
   ],
   "main": "tasks/webfonts.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/L2jLiga/grunt-webfonts.git"
+  },
   "dependencies": {
     "async": "2.6.1",
     "chalk": "2.4.1",
