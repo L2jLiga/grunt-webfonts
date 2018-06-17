@@ -2,7 +2,11 @@
  * SVG to webfont converter for Grunt
  *
  * @requires ttfautohint
- * @author Artem Sapegin (http://sapegin.me)
+ * @license
+ * Copyright Andrey Chalkin <L2jLiga> and Artem Sapegin (http://sapegin.me). All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/L2jLiga/grunt-webfonts/LICENSE
  */
 
 'use strict';
@@ -626,7 +630,7 @@ module.exports = function webFonts(grunt) {
      * Check if a value exists in an array
      *
      * @param {Array} haystack Array to find the needle in
-     * @param {Mixed} needle Value to find
+     * @param {*} needle Value to find
      * @return {Boolean} Needle was found
      */
     function has(haystack, needle) {
@@ -638,7 +642,7 @@ module.exports = function webFonts(grunt) {
      *
      * @param {Object} map Options object
      * @param {String} key Option to find in the object
-     * @return {Mixed}
+     * @return {*}
      */
     function option(map, key) {
       return map[key in map ? key : '_default'];
@@ -647,7 +651,7 @@ module.exports = function webFonts(grunt) {
     /**
      * Find next unused codepoint.
      *
-     * @return {Integer}
+     * @return {Number}
      */
     function getNextCodepoint() {
       while (_.invert(defaultOptions.codepoints).hasOwnProperty(currentCodepoint)) {
@@ -802,7 +806,7 @@ module.exports = function webFonts(grunt) {
      * @return {String}
      */
     function template(tmpl, context) {
-      return tmpl.replace(/\{([^}]+)}/g, (value, key) => context[key]);
+      return tmpl.replace(/{([^}]+)}/g, (value, key) => context[key]);
     }
 
     /**

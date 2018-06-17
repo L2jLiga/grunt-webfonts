@@ -1,10 +1,14 @@
-'use strict';
-
 /**
- * grunt-webfont: common stuff
+ * grunt-webfonts: common stuff
  *
- * @author Artem Sapegin (http://sapegin.me)
+ * @license
+ * Copyright Andrey Chalkin <L2jLiga> and Artem Sapegin (http://sapegin.me). All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/L2jLiga/grunt-webfonts/LICENSE
  */
+
+'use strict';
 
 const [path, glob] = [require('path'), require('glob')];
 
