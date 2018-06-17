@@ -1,11 +1,15 @@
-'use strict';
-
 /**
  * grunt-webfont: Node.js engine
  *
  * @requires ttfautohint 1.00+ (optional)
- * @author Artem Sapegin (http://sapegin.me)
+ * @license
+ * Copyright Andrey Chalkin <L2jLiga> and Artem Sapegin (http://sapegin.me). All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/L2jLiga/grunt-webfonts/LICENSE
  */
+
+'use strict';
 
 module.exports = function nodeEngine(o, allDone) {
   const [fs, path, async, temp, exec] = [
