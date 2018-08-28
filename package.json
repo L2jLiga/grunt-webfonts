@@ -8,8 +8,8 @@
   "scripts": {
     "build": "grunt build",
     "lint": "eslint ./src/**/*.js --fix",
-    "prepublish": "npm run build",
-    "postpublish": "git push & git push --tags"
+    "prepare": "npm run build",
+    "prepublishOnly": "git push & git push --tags"
   },
   "engines": {
     "node": ">= 6.5.0"
