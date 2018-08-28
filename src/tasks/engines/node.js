@@ -10,26 +10,20 @@
  */
 
 'use strict';
+const fs = require('fs');
+const path = require('path');
+const async = require('async');
+const temp = require('temp');
+const exec = require('child_process').exec;
+const StringDecoder = require('string_decoder').StringDecoder;
+const SVGIcon2SVGFontStream = require('svgicons2svgfont');
+const svg2ttf = require('svg2ttf');
+const ttf2eot = require('ttf2eot');
+const ttf2woff = require('ttf2woff');
+const SVGO = require('svgo');
+const MemoryStream = require('memorystream');
 
 module.exports = function nodeEngine(o, allDone) {
-  const [fs, path, async, temp, exec] = [
-    require('fs'),
-    require('path'),
-    require('async'),
-    require('temp'),
-    require('child_process').exec,
-  ];
-
-  const [StringDecoder, SVGIcon2SVGFontStream, svg2ttf, ttf2eot, ttf2woff, SVGO, MemoryStream] = [
-    require('string_decoder').StringDecoder,
-    require('svgicons2svgfont'),
-    require('svg2ttf'),
-    require('ttf2eot'),
-    require('ttf2woff'),
-    require('svgo'),
-    require('memorystream'),
-  ];
-
   const logger = o.logger;
   const wf = require('../util/util');
 
