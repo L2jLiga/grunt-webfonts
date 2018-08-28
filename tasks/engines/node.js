@@ -8,23 +8,35 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/L2jLiga/grunt-webfonts/LICENSE
  */
-
 'use strict';
+
 const fs = require('fs');
+
 const path = require('path');
+
 const async = require('async');
+
 const temp = require('temp');
+
 const exec = require('child_process').exec;
+
 const StringDecoder = require('string_decoder').StringDecoder;
+
 const SVGIcon2SVGFontStream = require('svgicons2svgfont');
+
 const svg2ttf = require('svg2ttf');
+
 const ttf2eot = require('ttf2eot');
+
 const ttf2woff = require('ttf2woff');
+
 const SVGO = require('svgo');
+
 const MemoryStream = require('memorystream');
 
 module.exports = function nodeEngine(o, allDone) {
   const logger = o.logger;
+
   const wf = require('../util/util');
 
   const fonts = {};
@@ -32,8 +44,7 @@ module.exports = function nodeEngine(o, allDone) {
     svg(done) {
       let font = '';
       const decoder = new StringDecoder('utf8');
-
-      svgFilesToStreams(o.files, (streams) => {
+      svgFilesToStreams(o.files, streams => {
         const fontStream = new SVGIcon2SVGFontStream({
           fontName: o.fontFamilyName,
           fontHeight: o.fontHeight,
@@ -42,41 +53,32 @@ module.exports = function nodeEngine(o, allDone) {
           normalize: o.normalize,
           round: o.round,
           log: logger.verbose.bind(logger),
-          error: logger.error.bind(logger),
+          error: logger.error.bind(logger)
         });
-
-        fontStream.on('data', (chunk) => {
+        fontStream.on('data', chunk => {
           font += decoder.write(chunk);
         });
-
         fontStream.on('end', () => {
           fonts.svg = font;
           done(font);
         });
-
-        streams.forEach((glyph) => {
+        streams.forEach(glyph => {
           const glyphStream = glyph.stream;
-
           glyphStream.metadata = {
-            unicode: [
-              String.fromCharCode(glyph.codepoint),
-            ],
-            name: glyph.name,
+            unicode: [String.fromCharCode(glyph.codepoint)],
+            name: glyph.name
           };
-
           fontStream.write(glyphStream);
         });
-
         fontStream.end();
       });
     },
 
     ttf(done) {
-      getFont('svg', (svgFont) => {
+      getFont('svg', svgFont => {
         let font = svg2ttf(svgFont, {});
         font = new Buffer(font.buffer);
-
-        autohintTtfFont(font, (hintedFont) => {
+        autohintTtfFont(font, hintedFont => {
           // ttfautohint is optional
           if (hintedFont) {
             font = hintedFont;
@@ -89,7 +91,7 @@ module.exports = function nodeEngine(o, allDone) {
     },
 
     woff(done) {
-      getFont('ttf', (ttfFont) => {
+      getFont('ttf', ttfFont => {
         let font = ttf2woff(new Uint8Array(ttfFont), {});
         font = new Buffer(font.buffer);
         fonts.woff = font;
@@ -103,35 +105,31 @@ module.exports = function nodeEngine(o, allDone) {
     },
 
     eot(done) {
-      getFont('ttf', (ttfFont) => {
+      getFont('ttf', ttfFont => {
         let font = ttf2eot(new Uint8Array(ttfFont));
         font = new Buffer(font.buffer);
         fonts.eot = font;
         done(font);
       });
-    },
+    }
+
   };
+  const steps = []; // Font types
 
-  const steps = [];
-
-  // Font types
   const typesToGenerate = o.types.slice();
-
   if (o.types.indexOf('woff2') !== -1 && o.types.indexOf('ttf') === -1) typesToGenerate.push('ttf');
-
-  typesToGenerate.forEach((type) => {
+  typesToGenerate.forEach(type => {
     steps.push(createFontWriter(type));
-  });
+  }); // Run!
 
-  // Run!
   async.waterfall(steps, allDone);
-
   /**
    * Get font
    *
    * @param {String} type
    * @param {Function} done
    */
+
   function getFont(type, done) {
     if (fonts[type]) {
       done(fonts[type]);
@@ -139,27 +137,29 @@ module.exports = function nodeEngine(o, allDone) {
       generators[type](done);
     }
   }
-
   /**
    * Create font writer
    * @param {String} type
    * @return {Function}
    */
+
+
   function createFontWriter(type) {
-    return (done) => {
-      getFont(type, (font) => {
+    return done => {
+      getFont(type, font => {
         fs.writeFileSync(wf.getFontPath(o, type), font);
         done();
       });
     };
   }
-
   /**
    * Convert svg files to streams
    *
    * @param {Array} files
    * @param {Function} done
    */
+
+
   function svgFilesToStreams(files, done) {
     async.map(files, (file, fileDone) => {
       /**
@@ -172,38 +172,38 @@ module.exports = function nodeEngine(o, allDone) {
         fileDone(null, {
           codepoint: o.codepoints[name],
           name,
-          stream,
+          stream
         });
       }
-
       /**
        * Create read stream
        *
        * @param {String} name
        * @param {File} file
        */
+
+
       function streamSVG(name, file) {
         const stream = fs.createReadStream(file);
         fileStreamed(name, stream);
       }
-
       /**
        * Stream files into SVGO
        *
        * @param {String} name
        * @param {File} file
        */
+
+
       function streamSVGO(name, file) {
         const svg = fs.readFileSync(file, 'utf8');
         const svgo = new SVGO();
-
-        svgo.optimize(svg).then((res) => {
+        svgo.optimize(svg).then(res => {
           const stream = new MemoryStream(res.data, {
-            writable: false,
+            writable: false
           });
-
           fileStreamed(name, stream);
-        }).catch((err) => {
+        }).catch(err => {
           logger.error('Can’t simplify SVG file with SVGO.\n\n' + err);
           fileDone(err);
         });
@@ -226,13 +226,14 @@ module.exports = function nodeEngine(o, allDone) {
       }
     });
   }
-
   /**
    * Call to autohint
    *
    * @param {File} font
    * @param {Function} done
    */
+
+
   function autohintTtfFont(font, done) {
     const tempDir = temp.mkdirSync();
     const originalFilepath = path.join(tempDir, 'font.ttf');
@@ -241,34 +242,28 @@ module.exports = function nodeEngine(o, allDone) {
     if (!o.autoHint) {
       done(false);
       return;
-    }
-    // Save original font to temporary directory
-    fs.writeFileSync(originalFilepath, font);
+    } // Save original font to temporary directory
 
-    // Run ttfautohint
-    const args = [
-      'ttfautohint',
-      '--symbol',
-      '--fallback-script=latn',
-      '--windows-compatibility',
-      '--no-info',
-      originalFilepath,
-      hintedFilepath,
-    ].join(' ');
 
-    exec(args, {maxBuffer: o.execMaxBuffer}, (err) => {
+    fs.writeFileSync(originalFilepath, font); // Run ttfautohint
+
+    const args = ['ttfautohint', '--symbol', '--fallback-script=latn', '--windows-compatibility', '--no-info', originalFilepath, hintedFilepath].join(' ');
+    exec(args, {
+      maxBuffer: o.execMaxBuffer
+    }, err => {
       if (err) {
         if (err.code === 127) {
           logger.verbose('Hinting skipped, ttfautohint not found.');
           done(false);
           return;
         }
+
         logger.error('Can’t run ttfautohint.\n\n' + err.message);
         done(false);
         return;
-      }
+      } // Read hinted font back
 
-      // Read hinted font back
+
       const hintedFont = fs.readFileSync(hintedFilepath);
       done(hintedFont);
     });
