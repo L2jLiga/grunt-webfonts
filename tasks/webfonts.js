@@ -481,7 +481,7 @@ module.exports = function webFonts(grunt) {
 
       if (context.fontPathVariables) {
         const fontPathVariableName = context.fontFamilyName + '-font-path';
-        const lessReplacer = new RegExp(_.escapeRegExp(`@{${fontPathVariableName}}`), 'g');
+        const lessReplacer = new RegExp(_.escapeRegExp(`"@{${fontPathVariableName}}`), 'g');
         const scssReplacer = new RegExp(_.escapeRegExp(`$${fontPathVariableName} + `), 'g');
         fontSrc1 = fontSrc1.replace(lessReplacer, '').replace(scssReplacer, '');
         fontSrc2 = fontSrc2.replace(lessReplacer, '').replace(scssReplacer, '');
