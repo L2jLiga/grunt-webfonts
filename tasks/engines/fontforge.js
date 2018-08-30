@@ -10,8 +10,20 @@
  */
 'use strict';
 
+const fs = require('fs');
+
+const path = require('path');
+
+const temp = require('temp');
+
+const exec = require('exec');
+
+const chalk = require('chalk');
+
+const wf = require('../util/util');
+
 module.exports = function (options, allDone) {
-  const [fs, path, temp, exec, chalk, _, logger, wf] = [require('fs'), require('path'), require('temp'), require('child_process').exec, require('chalk'), require('lodash'), options.logger, require('../util/util')]; // Copy source files to temporary directory
+  const logger = options.logger; // Copy source files to temporary directory
 
   const tempDir = temp.mkdirSync();
   options.files.forEach(file => {
@@ -85,11 +97,9 @@ module.exports = function (options, allDone) {
 
     return true;
   });
-
-  const params = _.extend(options, {
+  const params = Object.assign({}, options, {
     inputDir: tempDir
   });
-
   proc.stdin.write(JSON.stringify(params));
   proc.stdin.end();
   /**

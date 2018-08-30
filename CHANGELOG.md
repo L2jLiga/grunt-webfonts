@@ -5,15 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Added
-+ Before publish hook
-+ After publish hook
-+ `.editorconfig`
+### [1.0.8] &ndash; 2018-08-30
+### Fixed
+- Invalid demo when `fontPathVariables` is true
 
+## [1.0.7] &ndash; 2018-08-29
 ### Changed
-+ Update dependencies
-+ Information about repo in package.json
-+ Information about author in package.json
++ Updated dependencies
++ Minor changes in package.json
+
+### Fixed
+- Invalid svg font generation on Node 10
 
 ## [1.0.6] &ndash; 2017-12-15
 ### Added
@@ -58,7 +60,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + FontForge engine
 + Tests (because they didn't work correctly)
 
-[Unreleased]: https://github.com/L2jLiga/xd2svg/compare/v1.0.6...HEAD
+[Unreleased]: https://github.com/L2jLiga/xd2svg/compare/v1.0.8...HEAD
+[1.0.8]: https://github.com/L2jLiga/xd2svg/compare/v1.0.7...v1.0.8
+[1.0.7]: https://github.com/L2jLiga/xd2svg/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/L2jLiga/xd2svg/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/L2jLiga/xd2svg/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/L2jLiga/xd2svg/compare/v1.0.3...v1.0.4

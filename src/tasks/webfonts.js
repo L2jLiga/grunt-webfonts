@@ -10,20 +10,17 @@
  */
 
 'use strict';
+const fs = require('fs');
+const path = require('path');
+const async = require('async');
+const glob = require('glob');
+const chalk = require('chalk');
+const mkdirp = require('mkdirp');
+const crypto = require('crypto');
+const ttf2woff2 = require('ttf2woff2');
+const _ = require('lodash');
 
 module.exports = function webFonts(grunt) {
-  const [fs, path, async, glob, chalk, mkdirp, crypto, ttf2woff2, _] = [
-    require('fs'),
-    require('path'),
-    require('async'),
-    require('glob'),
-    require('chalk'),
-    require('mkdirp'),
-    require('crypto'),
-    require('ttf2woff2'),
-    require('lodash'),
-  ];
-
   const wf = require('./util/util');
 
   grunt.registerMultiTask('webfont', 'Compile separate SVG files to webfont', function WebFont() {
@@ -80,7 +77,7 @@ module.exports = function webFonts(grunt) {
     /*
      * Check for `dest` param on either target config or global options object
      */
-    if (_.isUndefined(params.dest) && _.isUndefined(options.dest)) {
+    if (_.isNil(params.dest) && _.isNil(options.dest)) {
       logger.warn('Required property ' + [this.name, this.target, 'dest'].join('.') +
         ' or ' + [this.name, this.target, 'options.dest'].join('.') + ' missing.');
     }
@@ -149,7 +146,7 @@ module.exports = function webFonts(grunt) {
       execMaxBuffer: options.execMaxBuffer || 1024 * 200,
     };
 
-    defaultOptions = _.extend(defaultOptions, {
+    _.assignIn(defaultOptions, {
       fontName: defaultOptions.fontBaseName,
       destCssPaths: {
         css: defaultOptions.destCss,
@@ -204,7 +201,7 @@ module.exports = function webFonts(grunt) {
           generatedFiles.push(getCssFilePath(stylesheet));
         });
 
-        regenerationNeeded = _.some(generatedFiles, (filename) => {
+        regenerationNeeded = generatedFiles.some((filename) => {
           if (!filename) return false;
 
           if (!fs.existsSync(filename)) {
@@ -319,7 +316,7 @@ module.exports = function webFonts(grunt) {
         }
 
         if (result) {
-          defaultOptions = _.extend(defaultOptions, result);
+          defaultOptions = _.assignIn(defaultOptions, result);
         }
 
         done();
@@ -406,10 +403,10 @@ module.exports = function webFonts(grunt) {
 
       // Read JSON file corresponding to CSS template
       const templateJson = readTemplate(defaultOptions.template, defaultOptions.syntax, '.json', true);
-      if (templateJson) defaultOptions = _.extend(defaultOptions, JSON.parse(templateJson.template));
+      if (templateJson) defaultOptions = _.assignIn(defaultOptions, JSON.parse(templateJson.template));
 
       // Now override values with templateOptions
-      if (defaultOptions.templateOptions) defaultOptions = _.extend(defaultOptions, defaultOptions.templateOptions);
+      if (defaultOptions.templateOptions) defaultOptions = _.assignIn(defaultOptions, defaultOptions.templateOptions);
 
       // Generate CSS
       // Use extension of defaultOptions.template file if given, or default to .css
@@ -417,7 +414,7 @@ module.exports = function webFonts(grunt) {
       const ext = path.extname(defaultOptions.template) || '.css';
       defaultOptions.cssTemplate = readTemplate(defaultOptions.template, defaultOptions.syntax, ext);
 
-      const cssContext = _.extend(defaultOptions, {
+      const cssContext = _.assignIn(defaultOptions, {
         iconsStyles: true,
         stylesheet,
       });
@@ -471,7 +468,7 @@ module.exports = function webFonts(grunt) {
      * @return {Object} Base template context
      */
     function prepareBaseTemplateContext() {
-      return _.extend({}, defaultOptions);
+      return _.assignIn({}, defaultOptions);
     }
 
     /**
@@ -480,15 +477,27 @@ module.exports = function webFonts(grunt) {
      * @return {Object} HTML template context
      */
     function prepareHtmlTemplateContext() {
-      let context = _(defaultOptions);
+      const context = _.assignIn({}, defaultOptions);
 
       // Prepare relative font paths for injection into @font-face refs in HTML
       const relativeRe = new RegExp(_.escapeRegExp(defaultOptions.relativeFontPath), 'g');
       const htmlRelativeFontPath = normalizePath(path.relative(defaultOptions.destHtml, defaultOptions.dest));
 
-      context = context.extend({
-        fontSrc1: defaultOptions.fontSrc1.replace(relativeRe, htmlRelativeFontPath),
-        fontSrc2: defaultOptions.fontSrc2.replace(relativeRe, htmlRelativeFontPath),
+      let fontSrc1 = defaultOptions.fontSrc1.replace(relativeRe, htmlRelativeFontPath);
+      let fontSrc2 = defaultOptions.fontSrc2.replace(relativeRe, htmlRelativeFontPath);
+
+      if (context.fontPathVariables) {
+        const fontPathVariableName = context.fontFamilyName + '-font-path';
+        const lessReplacer = new RegExp(_.escapeRegExp(`"@{${fontPathVariableName}}`), 'g');
+        const scssReplacer = new RegExp(_.escapeRegExp(`$${fontPathVariableName} + `), 'g');
+
+        fontSrc1 = fontSrc1.replace(lessReplacer, '').replace(scssReplacer, '');
+        fontSrc2 = fontSrc2.replace(lessReplacer, '').replace(scssReplacer, '');
+      }
+
+      _.assignIn(context, {
+        fontSrc1,
+        fontSrc2,
         fontfaceStyles: true,
         baseStyles: true,
         extraStyles: false,
@@ -497,7 +506,7 @@ module.exports = function webFonts(grunt) {
       });
 
       return _(context).extend({
-        styles: renderTemplate(defaultOptions.cssTemplate, context.value()),
+        styles: renderTemplate(defaultOptions.cssTemplate, context),
       }).value();
     }
 
@@ -511,7 +520,7 @@ module.exports = function webFonts(grunt) {
     function generateCustomOutput(outputConfig) {
       // Accesses context
       const context = prepareBaseTemplateContext();
-      _.extend(context, outputConfig.context);
+      _.assignIn(context, outputConfig.context);
 
       // Prepares config attributes related to template filepath
       const templatePath = outputConfig.template;
@@ -701,7 +710,7 @@ module.exports = function webFonts(grunt) {
       filepath = filepath.replace(/\\/g, '/');
 
       // Make sure path ends with a slash
-      if (!_.endsWith(filepath, '/')) {
+      if (!filepath.endsWith('/')) {
         filepath += '/';
       }
 

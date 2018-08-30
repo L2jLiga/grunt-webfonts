@@ -20,8 +20,6 @@ const temp = require('temp');
 
 const exec = require('child_process').exec;
 
-const StringDecoder = require('string_decoder').StringDecoder;
-
 const SVGIcon2SVGFontStream = require('svgicons2svgfont');
 
 const svg2ttf = require('svg2ttf');
@@ -43,7 +41,6 @@ module.exports = function nodeEngine(o, allDone) {
   const generators = {
     svg(done) {
       let font = '';
-      const decoder = new StringDecoder('utf8');
       svgFilesToStreams(o.files, streams => {
         const fontStream = new SVGIcon2SVGFontStream({
           fontName: o.fontFamilyName,
@@ -56,7 +53,7 @@ module.exports = function nodeEngine(o, allDone) {
           error: logger.error.bind(logger)
         });
         fontStream.on('data', chunk => {
-          font += decoder.write(chunk);
+          font += chunk.toString('utf8');
         });
         fontStream.on('end', () => {
           fonts.svg = font;
