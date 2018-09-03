@@ -15,7 +15,7 @@ const path = require('path');
 const async = require('async');
 const temp = require('temp');
 const exec = require('child_process').exec;
-const SVGIcon2SVGFontStream = require('svgicons2svgfont');
+const SVGIcons2SVGFontStream = require('svgicons2svgfont');
 const svg2ttf = require('svg2ttf');
 const ttf2eot = require('ttf2eot');
 const ttf2woff = require('ttf2woff');
@@ -32,7 +32,7 @@ module.exports = function nodeEngine(o, allDone) {
       let font = '';
 
       svgFilesToStreams(o.files, (streams) => {
-        const fontStream = new SVGIcon2SVGFontStream({
+        const fontStream = new SVGIcons2SVGFontStream({
           fontName: o.fontFamilyName,
           fontHeight: o.fontHeight,
           descent: o.descent,
@@ -47,23 +47,12 @@ module.exports = function nodeEngine(o, allDone) {
           font += chunk.toString('utf8');
         });
 
-        fontStream.on('end', () => {
+        fontStream.on('finish', () => {
           fonts.svg = font;
           done(font);
         });
 
-        streams.forEach((glyph) => {
-          const glyphStream = glyph.stream;
-
-          glyphStream.metadata = {
-            unicode: [
-              String.fromCharCode(glyph.codepoint),
-            ],
-            name: glyph.name,
-          };
-
-          fontStream.write(glyphStream);
-        });
+        streams.forEach((glyphStream) => fontStream.write(glyphStream));
 
         fontStream.end();
       });
@@ -167,11 +156,17 @@ module.exports = function nodeEngine(o, allDone) {
        * @param {Stream} stream
        */
       function fileStreamed(name, stream) {
-        fileDone(null, {
-          codepoint: o.codepoints[name],
+        stream.metadata = {
+          unicode: [String.fromCodePoint(o.codepoints[name])],
           name,
-          stream,
-        });
+        };
+        if (o.ligaturesOnly) {
+          stream.metadata.unicode = [name];
+        } else if (o.addLigatures) {
+          stream.metadata.unicode.push(name);
+        }
+
+        fileDone(null, stream);
       }
 
       /**

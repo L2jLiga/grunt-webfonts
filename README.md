@@ -68,30 +68,23 @@ Then install `fontforge`.
 
 There are two font rendering engines available. See also `engine` option below.
 
-### fontforge
-
-#### Pros
-
-* All features supported.
-* The best results.
-
-#### Cons
-
-* You have to install `fontforge`.
-* Really weird bugs sometimes.
-
-### node
+### node (default)
 
 #### Pros
 
 * No external dependencies (except optional `ttfautohint`).
 * Works on all platforms.
 
+### fontforge
+
+#### Pros
+
+* The best results.
+
 #### Cons
 
-* Doesn’t work [with some SVG files](https://github.com/fontello/svg2ttf/issues/25).
-* Ligatures aren’t supported.
-
+* You have to install `fontforge`.
+* Really weird bugs sometimes.
 
 ## Configuration
 
