@@ -349,7 +349,7 @@ module.exports = function webFonts(grunt) {
 
       // Save
       const woff2FontPath = wf.getFontPath(defaultOptions, 'woff2');
-      fs.writeFile(woff2FontPath, woffFont, done);
+      fs.writeFile(woff2FontPath, woffFont, () => done());
     }
 
     /**
