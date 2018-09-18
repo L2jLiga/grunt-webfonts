@@ -114,12 +114,10 @@ function getFontPath(options, type) {
   return path.join(options.dest, options.fontFilename + '.' + type);
 }
 
-module.exports = {
-  UNICODE_PUA_START,
-  fontsSrcsMap,
-  cssFilePrefixes,
-  fontSrcSeparators,
-  fontFormats,
-  generatedFontFiles,
-  getFontPath,
-};
+exports.UNICODE_PUA_START = UNICODE_PUA_START;
+exports.fontsSrcsMap = fontsSrcsMap;
+exports.cssFilePrefixes = cssFilePrefixes;
+exports.fontSrcSeparators = fontSrcSeparators;
+exports.fontFormats = fontFormats;
+exports.generatedFontFiles = generatedFontFiles;
+exports.getFontPath = getFontPath;
