@@ -61,7 +61,7 @@ module.exports = function nodeEngine(o, allDone) {
     ttf(done) {
       getFont('svg', (svgFont) => {
         let font = svg2ttf(svgFont, {});
-        font = new Buffer(font.buffer);
+        font = Buffer.from(font.buffer);
 
         autohintTtfFont(font, (hintedFont) => {
           // ttfautohint is optional
@@ -78,7 +78,7 @@ module.exports = function nodeEngine(o, allDone) {
     woff(done) {
       getFont('ttf', (ttfFont) => {
         let font = ttf2woff(new Uint8Array(ttfFont), {});
-        font = new Buffer(font.buffer);
+        font = Buffer.from(font.buffer);
         fonts.woff = font;
         done(font);
       });
@@ -92,7 +92,7 @@ module.exports = function nodeEngine(o, allDone) {
     eot(done) {
       getFont('ttf', (ttfFont) => {
         let font = ttf2eot(new Uint8Array(ttfFont));
-        font = new Buffer(font.buffer);
+        font = Buffer.from(font.buffer);
         fonts.eot = font;
         done(font);
       });
