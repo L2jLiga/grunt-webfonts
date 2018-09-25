@@ -1,14 +1,304 @@
 {
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
   "extends": [
-    "eslint:recommended",
-    "nodejs",
-    "google"
+    "eslint:recommended"
   ],
   "rules": {
+    "no-control-regex": 2,
+    "no-debugger": 2,
+    "no-dupe-args": 2,
+    "no-dupe-keys": 2,
+    "no-duplicate-case": 2,
+    "no-empty-character-class": 2,
+    "no-ex-assign": 2,
+    "no-extra-boolean-cast": 2,
+    "no-extra-parens": [
+      2,
+      "functions"
+    ],
+    "no-extra-semi": 2,
+    "no-func-assign": 2,
+    "no-invalid-regexp": 2,
+    "no-obj-calls": 2,
+    "no-template-curly-in-string": 2,
+    "no-unreachable": 2,
+    "no-unsafe-negation": 2,
+    "use-isnan": 2,
+    "valid-typeof": 2,
+    "dot-location": [
+      2,
+      "property"
+    ],
+    "eqeqeq": [
+      2,
+      "smart"
+    ],
+    "no-fallthrough": 2,
+    "no-global-assign": 2,
+    "no-octal": 2,
+    "no-proto": 2,
+    "no-redeclare": 2,
+    "no-restricted-properties": [
+      2,
+      {
+        "object": "assert",
+        "property": "deepEqual",
+        "message": "Use assert.deepStrictEqual()."
+      },
+      {
+        "object": "assert",
+        "property": "equal",
+        "message": "Use assert.strictEqual() rather than assert.equal()."
+      },
+      {
+        "object": "assert",
+        "property": "notEqual",
+        "message": "Use assert.notStrictEqual() rather than assert.notEqual()."
+      },
+      {
+        "property": "__defineGetter__",
+        "message": "__defineGetter__ is deprecated."
+      },
+      {
+        "property": "__defineSetter__",
+        "message": "__defineSetter__ is deprecated."
+      }
+    ],
+    "no-self-assign": 2,
+    "no-unused-labels": 2,
+    "no-useless-call": 2,
+    "no-useless-concat": 2,
+    "no-useless-escape": 2,
+    "no-useless-return": 2,
+    "no-void": 2,
+    "strict": [
+      2,
+      "global"
+    ],
+    "no-delete-var": 2,
+    "no-undef": 2,
+    "no-mixed-requires": 2,
+    "no-new-require": 2,
+    "no-path-concat": 2,
+    "no-restricted-modules": [
+      2,
+      "sys"
+    ],
+    "func-name-matching": 2,
+    "func-style": [
+      2,
+      "declaration",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    "new-parens": 2,
+    "no-restricted-syntax": [
+      2,
+      {
+        "selector": "CallExpression[callee.name='setTimeout'][arguments.length<2]",
+        "message": "setTimeout() must be invoked with at least two arguments."
+      },
+      {
+        "selector": "CallExpression[callee.name='setInterval'][arguments.length<2]",
+        "message": "setInterval() must be invoked with at least 2 arguments."
+      },
+      {
+        "selector": "ThrowStatement > CallExpression[callee.name=/Error$/]",
+        "message": "Use new keyword when throwing an Error."
+      }
+    ],
+    "one-var-declaration-per-line": 2,
+    "operator-linebreak": [
+      2,
+      "after"
+    ],
+    "space-in-parens": [
+      2,
+      "never"
+    ],
+    "space-infix-ops": 2,
+    "space-unary-ops": 2,
+    "unicode-bom": 2,
+    "arrow-spacing": [
+      2,
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "no-class-assign": 2,
+    "no-confusing-arrow": 2,
+    "no-const-assign": 2,
+    "no-dupe-class-members": 2,
+    "prefer-const": [
+      2,
+      {
+        "ignoreReadBeforeAssign": true
+      }
+    ],
+    "template-curly-spacing": 2,
+    "object-shorthand": 2,
+    "prefer-arrow-callback": 2,
+    "arrow-body-style": [
+      2,
+      "as-needed"
+    ],
+    "no-cond-assign": 0,
+    "no-irregular-whitespace": 2,
+    "no-unexpected-multiline": 2,
+    "valid-jsdoc": [
+      2,
+      {
+        "requireParamDescription": false,
+        "requireReturnDescription": false,
+        "requireReturn": false,
+        "prefer": {
+          "returns": "return"
+        }
+      }
+    ],
+    "curly": [
+      2,
+      "multi-line"
+    ],
+    "guard-for-in": 2,
+    "no-caller": 2,
+    "no-extend-native": 2,
+    "no-extra-bind": 2,
+    "no-invalid-this": 2,
+    "no-multi-spaces": 2,
+    "no-multi-str": 2,
+    "no-new-wrappers": 2,
+    "no-throw-literal": 2,
+    "no-with": 2,
+    "no-unused-vars": [
+      2,
+      {
+        "args": "none"
+      }
+    ],
+    "array-bracket-newline": 0,
+    "array-bracket-spacing": [
+      2,
+      "never"
+    ],
+    "array-element-newline": 0,
+    "block-spacing": [
+      2,
+      "never"
+    ],
+    "brace-style": 2,
+    "camelcase": [
+      2,
+      {
+        "properties": "never"
+      }
+    ],
+    "comma-dangle": [
+      2,
+      "always-multiline"
+    ],
+    "comma-spacing": 2,
+    "comma-style": 2,
+    "computed-property-spacing": 2,
+    "eol-last": 2,
+    "func-call-spacing": 2,
+    "key-spacing": 2,
+    "keyword-spacing": 2,
+    "linebreak-style": 2,
+    "new-cap": 2,
+    "no-array-constructor": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "no-multiple-empty-lines": [
+      2,
+      {
+        "max": 2
+      }
+    ],
+    "no-new-object": 2,
+    "no-tabs": 2,
+    "no-trailing-spaces": 2,
+    "object-curly-spacing": 2,
+    "one-var": [
+      2,
+      {
+        "var": "never",
+        "let": "never",
+        "const": "never"
+      }
+    ],
+    "padded-blocks": [
+      2,
+      "never"
+    ],
+    "quote-props": [
+      2,
+      "consistent"
+    ],
+    "quotes": [
+      2,
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "require-jsdoc": [
+      2,
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true
+        }
+      }
+    ],
+    "semi": 2,
+    "semi-spacing": 2,
+    "space-before-blocks": 2,
+    "space-before-function-paren": [
+      2,
+      {
+        "asyncArrow": "always",
+        "anonymous": "never",
+        "named": "never"
+      }
+    ],
+    "spaced-comment": [
+      2,
+      "always"
+    ],
+    "switch-colon-spacing": 2,
+    "arrow-parens": [
+      2,
+      "always"
+    ],
+    "constructor-super": 2,
+    "generator-star-spacing": [
+      2,
+      "after"
+    ],
+    "no-new-symbol": 2,
+    "no-this-before-super": 2,
+    "no-var": 2,
+    "prefer-rest-params": 2,
+    "prefer-spread": 2,
+    "rest-spread-spacing": 2,
+    "yield-star-spacing": [
+      2,
+      "after"
+    ],
     "max-len": [
       2,
       {
         "code": 160,
+        "ignoreRegExpLiterals": true,
         "tabWidth": 2,
         "ignoreUrls": true
       }
