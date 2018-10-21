@@ -19,7 +19,7 @@ const SVGIcons2SVGFontStream = require('svgicons2svgfont');
 const svg2ttf = require('svg2ttf');
 const ttf2eot = require('ttf2eot');
 const ttf2woff = require('ttf2woff');
-const SVGO = require('svgo');
+const svgToPath = require('path-that-svg').default;
 const MemoryStream = require('memorystream');
 
 module.exports = function nodeEngine(o, allDone) {
@@ -169,47 +169,21 @@ module.exports = function nodeEngine(o, allDone) {
         fileDone(null, stream);
       }
 
-      /**
-       * Create read stream
-       *
-       * @param {String} name
-       * @param {File} file
-       */
-      function streamSVG(name, file) {
-        const stream = fs.createReadStream(file);
-        fileStreamed(name, stream);
-      }
-
-      /**
-       * Stream files into SVGO
-       *
-       * @param {String} name
-       * @param {File} file
-       */
-      function streamSVGO(name, file) {
-        const svg = fs.readFileSync(file, 'utf8');
-        const svgo = new SVGO();
-
-        svgo.optimize(svg).then((res) => {
-          const stream = new MemoryStream(res.data, {
-            writable: false,
-          });
-
-          fileStreamed(name, stream);
-        }).catch((err) => {
-          logger.error('Can’t simplify SVG file with SVGO.\n\n' + err);
-          fileDone(err);
-        });
-      }
-
       const idx = files.indexOf(file);
       const name = o.glyphs[idx];
 
-      if (o.optimize === true) {
-        streamSVGO(name, file);
-      } else {
-        streamSVG(name, file);
-      }
+      const svg = fs.readFileSync(file, 'utf8');
+
+      svgToPath(svg).then((data) => {
+        const stream = new MemoryStream(data, {
+          writable: false,
+        });
+
+        fileStreamed(name, stream);
+      }).catch((err) => {
+        logger.error('Can’t simplify SVG file with SVGO.\n\n' + err);
+        fileDone(err);
+      });
     }, (err, streams) => {
       if (err) {
         logger.error('Can’t stream SVG file.\n\n' + err);
