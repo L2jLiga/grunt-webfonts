@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "name": "grunt-webfonts",
   "description": "SVG to webfont converter for Grunt",
   "homepage": "https://github.com/L2jLiga/grunt-webfonts",
