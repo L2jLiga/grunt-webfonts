@@ -5,7 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### [1.0.10] &ndash; 2018-08-30
+## [1.1.2]
+### Fixed
+- Checksum error in glyf ([#7](https://github.com/L2jLiga/grunt-webfonts/issues/7))
+
+## [1.1.0]
+### Added
+- Ligatures support
+
+## [1.0.10] &ndash; 2018-08-30
 ### Fixed
 - Invalid demo when `fontPathVariables` is true
 
@@ -60,7 +68,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + FontForge engine
 + Tests (because they didn't work correctly)
 
-[Unreleased]: https://github.com/L2jLiga/xd2svg/compare/v1.0.10...HEAD
+[Unreleased]: https://github.com/L2jLiga/xd2svg/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/L2jLiga/xd2svg/compare/v1.1.0...v1.1.2
+[1.1.0]: https://github.com/L2jLiga/xd2svg/compare/v1.0.10...v1.1.0
 [1.0.10]: https://github.com/L2jLiga/xd2svg/compare/v1.0.7...v1.0.10
 [1.0.7]: https://github.com/L2jLiga/xd2svg/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/L2jLiga/xd2svg/compare/v1.0.5...v1.0.6
