@@ -19,7 +19,6 @@ const SVGIcons2SVGFontStream = require('svgicons2svgfont');
 const svg2ttf = require('svg2ttf');
 const ttf2eot = require('ttf2eot');
 const ttf2woff = require('ttf2woff');
-const svgToPath = require('path-that-svg').default;
 const MemoryStream = require('memorystream');
 
 module.exports = function nodeEngine(o, allDone) {
@@ -174,16 +173,11 @@ module.exports = function nodeEngine(o, allDone) {
 
       const svg = fs.readFileSync(file, 'utf8');
 
-      svgToPath(svg).then((data) => {
-        const stream = new MemoryStream(data, {
-          writable: false,
-        });
-
-        fileStreamed(name, stream);
-      }).catch((err) => {
-        logger.error('Can’t simplify SVG file with SVGO.\n\n' + err);
-        fileDone(err);
+      const stream = new MemoryStream(svg, {
+        writable: false,
       });
+
+      fileStreamed(name, stream);
     }, (err, streams) => {
       if (err) {
         logger.error('Can’t stream SVG file.\n\n' + err);
