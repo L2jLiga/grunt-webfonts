@@ -5,9 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.5]
+### Fixed
+- npm audit vulnerabilities report
+
+## [1.1.4]
+### Changed
+- Improved different SVGs support (again)
+
+## [1.1.3]
+### Changed
+- Improved different SVGs support
+
 ## [1.1.2]
 ### Fixed
 - Checksum error in glyf ([#7](https://github.com/L2jLiga/grunt-webfonts/issues/7))
+
+## [1.1.1]
+### Changed
+- Replaced deprecated Buffer constructor
+- Unpinned dependencies
 
 ## [1.1.0]
 ### Added
@@ -68,8 +86,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + FontForge engine
 + Tests (because they didn't work correctly)
 
-[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.2...HEAD
-[1.1.2]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.0...v1.1.2
+[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.5...HEAD
+[1.1.5]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.4...v1.1.5
+[1.1.4]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.3...v1.1.4
+[1.1.3]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.0.10...v1.1.0
 [1.0.10]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.0.7...v1.0.10
 [1.0.7]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.0.6...v1.0.7
