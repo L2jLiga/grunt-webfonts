@@ -34,7 +34,7 @@ module.exports = function webFonts(grunt) {
         const msg = this[format](...args);
 
         if (arguments.length > 0) {
-          grunt.log.writeln('>> '.red + _.trim(msg).replace(/\n/g, '\n>> '.red));
+          grunt.log.writeln('>> '.red + msg.trim().replace(/\n/g, '\n>> '.red));
         } else {
           grunt.log.writeln('ERROR'.red);
         }
@@ -142,7 +142,7 @@ module.exports = function webFonts(grunt) {
       version: options.version !== undefined ? options.version : false,
       cache: options.cache || path.join(__dirname, '..', '.cache'),
       callback: options.callback,
-      customOutputs: options.customOutputs,
+      customOutputs: options.customOutputs || [],
       execMaxBuffer: options.execMaxBuffer || 1024 * 200,
     };
 
@@ -360,13 +360,13 @@ module.exports = function webFonts(grunt) {
       // Convert codepoints to array of strings
       const codepoints = [];
 
-      _.each(defaultOptions.glyphs, (name) => {
+      defaultOptions.glyphs.forEach((name) => {
         codepoints.push(defaultOptions.codepoints[name].toString(16));
       });
       defaultOptions.codepoints = codepoints;
 
       // Prepage glyph names to use as CSS classes
-      defaultOptions.glyphs = _.map(defaultOptions.glyphs, classNameize);
+      defaultOptions.glyphs = defaultOptions.glyphs.map(classNameize);
 
       defaultOptions.stylesheets.sort((keyName) => keyName.indexOf('css')).forEach(generateStylesheet);
 
@@ -565,7 +565,7 @@ module.exports = function webFonts(grunt) {
         return;
       }
 
-      _.each(defaultOptions.customOutputs, generateCustomOutput);
+      defaultOptions.customOutputs.forEach(generateCustomOutput);
       done();
     }
 
@@ -632,7 +632,7 @@ module.exports = function webFonts(grunt) {
         return val;
       }
 
-      return val.split(',').map(_.trim);
+      return val.split(',').map((str) => str.trim());
     }
 
     /**
@@ -663,7 +663,7 @@ module.exports = function webFonts(grunt) {
      * @return {Number}
      */
     function getNextCodepoint() {
-      while (_.invert(defaultOptions.codepoints).hasOwnProperty(currentCodepoint)) {
+      while (Object.values(defaultOptions.codepoints).includes(currentCodepoint)) {
         currentCodepoint++;
       }
       return currentCodepoint;
@@ -825,7 +825,7 @@ module.exports = function webFonts(grunt) {
      * @return {String}
      */
     function classNameize(str) {
-      return _.trim(str).replace(/\s+/g, '-');
+      return str.trim().replace(/\s+/g, '-');
     }
 
     /**
