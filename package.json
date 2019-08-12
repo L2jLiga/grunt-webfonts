@@ -22,7 +22,7 @@
     "url": "https://github.com/L2jLiga/grunt-webfonts.git"
   },
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "^3.1.0",
     "chalk": "^2.4.2",
     "glob": "^7.1.4",
     "lodash": "^4.17.15",
