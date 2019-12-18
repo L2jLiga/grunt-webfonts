@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.0.0]
+### Changed
+- **BREAKING**: require node.js >= 8
+- Use built-in `child_process` instead of `exec` module ([#11](https://github.com/L2jLiga/grunt-webfonts/pull/11))
+
 ## [1.1.6]
 ### Changed
 - Updated dependencies
