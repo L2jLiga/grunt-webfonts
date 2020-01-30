@@ -98,7 +98,7 @@ const fontFormats = 'eot,woff2,woff,ttf,svg';
  * @return {Array}
  */
 function generatedFontFiles(options) {
-  const mask = '*.{' + options.types + '}';
+  const mask = options.types.length > 1 ? '*.{' + options.types + '}' : '*.' + options.types;
 
   return glob.sync(path.join(options.dest, options.fontFilename + mask));
 }
