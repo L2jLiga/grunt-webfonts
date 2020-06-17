@@ -159,6 +159,12 @@ Type: `boolean` Default: `true`
 
 Append font file names with unique string to flush browser cache when you update your icons.
 
+#### skipLinks
+
+Type: `boolean` Default: `false`
+
+Ignore symbolic links when enumerating svg to convert.
+
 #### styles
 
 Type: `string|array` Default: `'font,icon'`
