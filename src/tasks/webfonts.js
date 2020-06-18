@@ -90,7 +90,7 @@ module.exports = function webFonts(grunt) {
     // Source files
     let svgFiles = _(this.filesSrc).filter(isSvgFile);
     if (options.skipLinks === true) {
-      svgFiles = svgFiles.filter(isFsLink);
+      svgFiles = svgFiles.reject(isFsLink);
     }
     const files = svgFiles.value();
 
