@@ -88,7 +88,11 @@ module.exports = function webFonts(grunt) {
     }
 
     // Source files
-    const files = _(this.filesSrc).filter(isSvgFile).value();
+    let svgFiles = _(this.filesSrc).filter(isSvgFile);
+    if (options.skipLinks === true) {
+      svgFiles = svgFiles.filter(isFsLink);
+    }
+    const files = svgFiles.value();
 
     if (!files.length) {
       logger.warn('Specified empty list of source SVG files.');
@@ -677,6 +681,17 @@ module.exports = function webFonts(grunt) {
      */
     function isSvgFile(filepath) {
       return path.extname(filepath).toLowerCase() === '.svg';
+    }
+
+    /**
+     * Check whether file is link or not
+     *
+     * @param {String} filepath File path
+     * @return {Boolean}
+     */
+    function isFsLink(filepath) {
+      const stat = fs.lstatSync(filepath);
+      return stat.isSymbolicLink();
     }
 
     /**
