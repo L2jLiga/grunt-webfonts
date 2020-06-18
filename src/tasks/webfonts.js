@@ -193,7 +193,7 @@ module.exports = function webFonts(grunt) {
     logger.verbose('New hash:', defaultOptions.hash, '- previous hash:', previousHash);
     if (defaultOptions.hash === previousHash) {
       logger.verbose('Config and source files weren’t changed since last run, checking resulting files...');
-      let regenerationNeeded = false;
+      let regenerationNeeded;
       const generatedFiles = wf.generatedFontFiles(defaultOptions);
 
       if (!generatedFiles.length) {
@@ -590,15 +590,12 @@ module.exports = function webFonts(grunt) {
       const demoTemplate = readTemplate(defaultOptions.htmlDemoTemplate, 'demo', '.html');
       const demo = renderTemplate(demoTemplate, context);
 
-      mkdirp(getDemoPath(), (err) => {
-        if (err) {
+      mkdirp(getDemoPath())
+        .then(() => fs.writeFileSync(getDemoFilePath(), demo))
+        .catch((err) => {
           logger.log(err);
-          return;
-        }
-        // Save file
-        fs.writeFileSync(getDemoFilePath(), demo);
-        done();
-      });
+        })
+        .finally(() => done());
     }
 
     /**
