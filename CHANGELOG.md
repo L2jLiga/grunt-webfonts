@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [3.0.1]
+### Fixed
+- Ignore instead of taking only symbolic links if skipLinks is set.
+
 ## [3.0.0]
 ### Added
 - Add skipLinks option
@@ -111,7 +115,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + FontForge engine
 + Tests (because they didn't work correctly)
 
-[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/L2jLiga/grunt-webfonts/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/L2jLiga/grunt-webfonts/compare/v2.0.1...v3.0.0
 [2.0.1]: https://github.com/L2jLiga/grunt-webfonts/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/L2jLiga/grunt-webfonts/compare/v1.1.6...v2.0.0
