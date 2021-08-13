@@ -77,7 +77,7 @@ module.exports = function nodeEngine(o, allDone) {
     woff(done) {
       getFont('ttf', (ttfFont) => {
         let font = ttf2woff(new Uint8Array(ttfFont), {});
-        font = Buffer.from(font.buffer);
+        font = Buffer.from(font);
         fonts.woff = font;
         done(font);
       });
@@ -91,7 +91,7 @@ module.exports = function nodeEngine(o, allDone) {
     eot(done) {
       getFont('ttf', (ttfFont) => {
         let font = ttf2eot(new Uint8Array(ttfFont));
-        font = Buffer.from(font.buffer);
+        font = Buffer.from(font);
         fonts.eot = font;
         done(font);
       });
@@ -134,7 +134,7 @@ module.exports = function nodeEngine(o, allDone) {
   function createFontWriter(type) {
     return (done) => {
       getFont(type, (font) => {
-        fs.writeFileSync(wf.getFontPath(o, type), font);
+        if (font) fs.writeFileSync(wf.getFontPath(o, type), font);
         done();
       });
     };
