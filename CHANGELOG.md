@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [4.0.1]
+### Changed
+- Try to use FontForge for WOFF2 generation and fallback to `ttf2woff2` in case it fails to ([397c4cfd](https://github.com/L2jLiga/grunt-webfonts/commit/397c4cfd5b4d8b9803edea6cd448ab31a2f1b30b))
+
+### Fixed
+- eotlitetool crashes silently when Python >= 3.7 ([#30](https://github.com/L2jLiga/grunt-webfonts/pull/30))
+
 ## [4.0.0]
 ### Changed
 - **BREAKING** minimal node.js >= 12.13.0
@@ -120,7 +127,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + FontForge engine
 + Tests (because they didn't work correctly)
 
-[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.1...HEAD
+[4.0.1]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/L2jLiga/grunt-webfonts/compare/v3.0.1...v4.0.0
 [3.0.1]: https://github.com/L2jLiga/grunt-webfonts/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/L2jLiga/grunt-webfonts/compare/v2.0.1...v3.0.0
