@@ -333,7 +333,10 @@ module.exports = function webFonts(grunt) {
      * @param {Function} done
      */
     function generateWoff2Font(done) {
-      if (!has(defaultOptions.types, 'woff2')) {
+      if (
+        !has(defaultOptions.types, 'woff2') ||
+        fs.existsSync(wf.getFontPath(defaultOptions, 'woff2'))
+      ) {
         done();
         return;
       }

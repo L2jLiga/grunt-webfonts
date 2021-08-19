@@ -118,13 +118,24 @@ scriptPath = os.path.dirname(os.path.realpath(__file__))
 if 'woff' in args['types']:
     generate(fontfile + '.woff')
 
+# WOFF2
+woff2_generated = False
+if ('woff2' in args['types']):
+    try:
+        generate(fontfile + '.woff2')
+        woff2_generated = True
+    except Exception as ext:
+        print('Current version of FontForge seems to be unable to generate woff2 font, falling back to ttf2woff2, reason is %s', ext)
+else:
+    woff2_generated = True
+
 # EOT
 if 'eot' in args['types']:
     # eotlitetool.py script to generate IE7-compatible .eot fonts
     call('python "%(path)s/../../bin/eotlitetool.py" "%(font)s.ttf" --output "%(font)s.eot"' % {'path': scriptPath, 'font': fontfile}, shell=True)
 
 # Delete TTF if not needed
-if ('ttf' not in args['types']) and ('woff2' not in args['types']):
+if ('ttf' not in args['types']) and woff2_generated:
     os.remove(fontfile + '.ttf')
 
 print(json.dumps({'file': fontfile}))
