@@ -19,7 +19,6 @@ const SVGIcons2SVGFontStream = require('svgicons2svgfont');
 const svg2ttf = require('svg2ttf');
 const ttf2eot = require('ttf2eot');
 const ttf2woff = require('ttf2woff');
-const MemoryStream = require('memorystream');
 
 module.exports = function nodeEngine(o, allDone) {
   const logger = o.logger;
@@ -171,13 +170,7 @@ module.exports = function nodeEngine(o, allDone) {
       const idx = files.indexOf(file);
       const name = o.glyphs[idx];
 
-      const svg = fs.readFileSync(file, 'utf8');
-
-      const stream = new MemoryStream(svg, {
-        writable: false,
-      });
-
-      fileStreamed(name, stream);
+      fileStreamed(name, fs.createReadStream(file, 'utf-8'));
     }, (err, streams) => {
       if (err) {
         logger.error('Can’t stream SVG file.\n\n' + err);

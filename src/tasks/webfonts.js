@@ -15,7 +15,6 @@ const path = require('path');
 const async = require('async');
 const glob = require('glob');
 const chalk = require('chalk');
-const mkdirp = require('mkdirp');
 const crypto = require('crypto');
 const ttf2woff2 = require('ttf2woff2');
 const _ = require('lodash');
@@ -286,9 +285,9 @@ module.exports = function webFonts(grunt) {
      */
     function createOutputDirs(done) {
       defaultOptions.stylesheets.forEach((stylesheet) => {
-        mkdirp.sync(option(defaultOptions.destCssPaths, stylesheet));
+        fs.mkdirSync(option(defaultOptions.destCssPaths, stylesheet), {recursive: true});
       });
-      mkdirp.sync(defaultOptions.dest);
+      fs.mkdirSync(defaultOptions.dest, {recursive: true});
       done();
     }
 
@@ -557,7 +556,7 @@ module.exports = function webFonts(grunt) {
       }
 
       // Ensure existence of parent directory and output to file as desired
-      mkdirp.sync(destParent);
+      fs.mkdirSync(destParent, {recursive: true});
       fs.writeFileSync(filepath, output);
     }
 
@@ -593,12 +592,13 @@ module.exports = function webFonts(grunt) {
       const demoTemplate = readTemplate(defaultOptions.htmlDemoTemplate, 'demo', '.html');
       const demo = renderTemplate(demoTemplate, context);
 
-      mkdirp(getDemoPath())
-        .then(() => fs.writeFileSync(getDemoFilePath(), demo))
-        .catch((err) => {
-          logger.log(err);
-        })
-        .finally(() => done());
+      try {
+        fs.mkdirSync(getDemoPath(), {recursive: true});
+        fs.writeFileSync(getDemoFilePath(), demo);
+      } catch (err) {
+        logger.error(err);
+      }
+      done();
     }
 
     /**
@@ -890,7 +890,7 @@ module.exports = function webFonts(grunt) {
     function saveHash(name, target, hash) {
       const filepath = getHashPath(name, target);
 
-      mkdirp.sync(path.dirname(filepath));
+      fs.mkdirSync(path.dirname(filepath), {recursive: true});
       fs.writeFileSync(filepath, hash);
     }
 

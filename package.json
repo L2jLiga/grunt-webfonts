@@ -26,8 +26,6 @@
     "chalk": "^4.1.2",
     "glob": "^7.1.7",
     "lodash": "^4.17.21",
-    "memorystream": "^0.3.1",
-    "mkdirp": "^1.0.4",
     "svg2ttf": "^6.0.2",
     "svgicons2svgfont": "^10.0.3",
     "temp": "^0.9.4",
