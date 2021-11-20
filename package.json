@@ -6,9 +6,7 @@
   "author": "L2jLiga",
   "license": "MIT",
   "scripts": {
-    "build": "grunt build",
-    "lint": "eslint ./src/**/*.js --fix",
-    "prepare": "npm run build"
+    "lint": "grunt eslint"
   },
   "engines": {
     "node": ">=12.13.0"
@@ -22,28 +20,25 @@
     "url": "https://github.com/L2jLiga/grunt-webfonts.git"
   },
   "dependencies": {
-    "async": "^3.2.1",
+    "async": "^3.2.2",
     "chalk": "^4.1.2",
-    "glob": "^7.1.7",
+    "glob": "^7.2.0",
     "lodash": "^4.17.21",
-    "svg2ttf": "^6.0.2",
-    "svgicons2svgfont": "^10.0.3",
+    "svg2ttf": "^6.0.3",
+    "svgicons2svgfont": "^10.0.5",
     "temp": "^0.9.4",
     "ttf2eot": "^3.0.0",
     "ttf2woff": "^3.0.0",
     "ttf2woff2": "^4.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
     "@types/grunt": "^0.4.27",
-    "@types/lodash": "^4.14.172",
-    "@types/node": "^12.20.19",
-    "eslint": "^7.32.0",
+    "@types/lodash": "^4.14.177",
+    "@types/node": "^12.20.37",
+    "eslint": "^8.2.0",
     "grunt": "^1.4.1",
-    "grunt-babel": "^8.0.0",
     "grunt-cli": "^1.4.3",
-    "grunt-eslint": "^23.0.0"
+    "grunt-eslint": "^24.0.0"
   },
   "peerDependencies": {
     "grunt": "^1"

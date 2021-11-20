@@ -9,25 +9,13 @@
 'use strict';
 
 module.exports = function Gruntfile(grunt) {
-  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-eslint');
 
   grunt.initConfig({
-    babel: {
-      dist: {
-        files: [{
-          expand: true,
-          src: '**/*.js',
-          dest: './',
-          cwd: 'src',
-        }],
-      },
-    },
-
     eslint: {
-      target: ['./src/**/*.js'],
+      target: ['./tasks/**/*.js'],
     },
   });
 
-  grunt.registerTask('build', ['eslint', 'babel']);
+  grunt.registerTask('build', ['eslint']);
 };
