@@ -17,8 +17,11 @@ const glob = require('glob');
 const chalk = require('chalk');
 const crypto = require('crypto');
 const ttf2woff2 = require('ttf2woff2');
-const _ = require('lodash');
+const buildTemplateFn = require('lodash/template');
 
+/**
+ * @param {IGrunt} grunt
+ */
 module.exports = function webFonts(grunt) {
   const wf = require('./util/util');
 
@@ -76,7 +79,7 @@ module.exports = function webFonts(grunt) {
     /*
      * Check for `dest` param on either target config or global options object
      */
-    if (_.isNil(params.dest) && _.isNil(options.dest)) {
+    if (params.dest == null && options.dest == null) {
       logger.warn('Required property ' + [this.name, this.target, 'dest'].join('.') +
         ' or ' + [this.name, this.target, 'options.dest'].join('.') + ' missing.');
     }
@@ -87,11 +90,10 @@ module.exports = function webFonts(grunt) {
     }
 
     // Source files
-    let svgFiles = _(this.filesSrc).filter(isSvgFile);
+    let files = this.filesSrc.filter(isSvgFile);
     if (options.skipLinks === true) {
-      svgFiles = svgFiles.reject(isFsLink);
+      files = files.filter((filepath) => !fs.lstatSync(filepath).isSymbolicLink());
     }
-    const files = svgFiles.value();
 
     if (!files.length) {
       logger.warn('Specified empty list of source SVG files.');
@@ -149,7 +151,7 @@ module.exports = function webFonts(grunt) {
       execMaxBuffer: options.execMaxBuffer || 1024 * 200,
     };
 
-    _.assignIn(defaultOptions, {
+    Object.assign(defaultOptions, {
       fontName: defaultOptions.fontBaseName,
       destCssPaths: {
         css: defaultOptions.destCss,
@@ -160,9 +162,9 @@ module.exports = function webFonts(grunt) {
       },
       relativeFontPath: defaultOptions.relativeFontPath || path.relative(defaultOptions.destCss, defaultOptions.dest),
       destHtml: options.destHtml || defaultOptions.destCss,
-      fontfaceStyles: has(defaultOptions.styles, 'font'),
-      baseStyles: has(defaultOptions.styles, 'icon'),
-      extraStyles: has(defaultOptions.styles, 'extra'),
+      fontfaceStyles: defaultOptions.styles.includes('font'),
+      baseStyles: defaultOptions.styles.includes('icon'),
+      extraStyles: defaultOptions.styles.includes('extra'),
       files,
       glyphs: [],
     });
@@ -242,7 +244,7 @@ module.exports = function webFonts(grunt) {
      * Call callback function if it was specified in the options.
      */
     function completeTask() {
-      if (defaultOptions && _.isFunction(defaultOptions.callback)) {
+      if (defaultOptions && defaultOptions.callback && 'call' in defaultOptions.callback) {
         defaultOptions.callback(defaultOptions.fontName, defaultOptions.types, defaultOptions.glyphs, defaultOptions.hash);
       }
       allDone();
@@ -319,7 +321,7 @@ module.exports = function webFonts(grunt) {
         }
 
         if (result) {
-          defaultOptions = _.assignIn(defaultOptions, result);
+          defaultOptions = Object.assign(defaultOptions, result);
         }
 
         done();
@@ -333,7 +335,7 @@ module.exports = function webFonts(grunt) {
      */
     function generateWoff2Font(done) {
       if (
-        !has(defaultOptions.types, 'woff2') ||
+        !defaultOptions.types.includes('woff2') ||
         fs.existsSync(wf.getFontPath(defaultOptions, 'woff2'))
       ) {
         done();
@@ -345,7 +347,7 @@ module.exports = function webFonts(grunt) {
       const ttfFont = fs.readFileSync(ttfFontPath);
 
       // Remove TTF font if not needed
-      if (!has(defaultOptions.types, 'ttf')) {
+      if (!defaultOptions.types.includes('ttf')) {
         fs.unlinkSync(ttfFontPath);
       }
 
@@ -391,7 +393,7 @@ module.exports = function webFonts(grunt) {
       const fontSrcs = [[], []];
 
       defaultOptions.order.forEach((type) => {
-        if (!has(defaultOptions.types, type)) return;
+        if (!defaultOptions.types.includes(type)) return;
         wf.fontsSrcsMap[type].forEach((font, idx) => {
           if (font) {
             fontSrcs[idx].push(generateFontSrc(type, font, stylesheet));
@@ -409,10 +411,10 @@ module.exports = function webFonts(grunt) {
 
       // Read JSON file corresponding to CSS template
       const templateJson = readTemplate(defaultOptions.template, defaultOptions.syntax, '.json', true);
-      if (templateJson) defaultOptions = _.assignIn(defaultOptions, JSON.parse(templateJson.template));
+      if (templateJson) defaultOptions = Object.assign(defaultOptions, JSON.parse(templateJson.template));
 
       // Now override values with templateOptions
-      if (defaultOptions.templateOptions) defaultOptions = _.assignIn(defaultOptions, defaultOptions.templateOptions);
+      if (defaultOptions.templateOptions) defaultOptions = Object.assign(defaultOptions, defaultOptions.templateOptions);
 
       // Generate CSS
       // Use extension of defaultOptions.template file if given, or default to .css
@@ -420,7 +422,7 @@ module.exports = function webFonts(grunt) {
       const ext = path.extname(defaultOptions.template) || '.css';
       defaultOptions.cssTemplate = readTemplate(defaultOptions.template, defaultOptions.syntax, ext);
 
-      const cssContext = _.assignIn(defaultOptions, {
+      const cssContext = Object.assign(defaultOptions, {
         iconsStyles: true,
         stylesheet,
       });
@@ -428,7 +430,7 @@ module.exports = function webFonts(grunt) {
       let css = renderTemplate(defaultOptions.cssTemplate, cssContext);
 
       // Fix CSS preprocessors comments: single line comments will be removed after compilation
-      if (has(['sass', 'scss', 'less', 'styl'], stylesheet)) {
+      if (['sass', 'scss', 'less', 'styl'].includes(stylesheet)) {
         css = css.replace(/\/\* *(.*?) *\*\//g, '// $1');
       }
 
@@ -474,7 +476,7 @@ module.exports = function webFonts(grunt) {
      * @return {Object} Base template context
      */
     function prepareBaseTemplateContext() {
-      return _.assignIn({}, defaultOptions);
+      return Object.assign({}, defaultOptions);
     }
 
     /**
@@ -483,10 +485,10 @@ module.exports = function webFonts(grunt) {
      * @return {Object} HTML template context
      */
     function prepareHtmlTemplateContext() {
-      const context = _.assignIn({}, defaultOptions);
+      const context = Object.assign({}, defaultOptions);
 
       // Prepare relative font paths for injection into @font-face refs in HTML
-      const relativeRe = new RegExp(_.escapeRegExp(defaultOptions.relativeFontPath), 'g');
+      const relativeRe = new RegExp(defaultOptions.relativeFontPath, 'g');
       const htmlRelativeFontPath = normalizePath(path.relative(defaultOptions.destHtml, defaultOptions.dest));
 
       let fontSrc1 = defaultOptions.fontSrc1.replace(relativeRe, htmlRelativeFontPath);
@@ -494,14 +496,14 @@ module.exports = function webFonts(grunt) {
 
       if (context.fontPathVariables) {
         const fontPathVariableName = context.fontFamilyName + '-font-path';
-        const lessReplacer = new RegExp(_.escapeRegExp(`@{${fontPathVariableName}}`), 'g');
-        const scssReplacer = new RegExp(_.escapeRegExp(`$${fontPathVariableName} + `), 'g');
+        const lessReplacer = new RegExp(`@{${fontPathVariableName}}`, 'g');
+        const scssReplacer = new RegExp(`$${fontPathVariableName} + `, 'g');
 
         fontSrc1 = fontSrc1.replace(lessReplacer, '').replace(scssReplacer, '');
         fontSrc2 = fontSrc2.replace(lessReplacer, '').replace(scssReplacer, '');
       }
 
-      _.assignIn(context, {
+      Object.assign(context, {
         fontSrc1,
         fontSrc2,
         fontfaceStyles: true,
@@ -511,9 +513,9 @@ module.exports = function webFonts(grunt) {
         stylesheet: 'css',
       });
 
-      return _(context).extend({
+      return Object.assign(context, {
         styles: renderTemplate(defaultOptions.cssTemplate, context),
-      }).value();
+      });
     }
 
     /**
@@ -526,7 +528,7 @@ module.exports = function webFonts(grunt) {
     function generateCustomOutput(outputConfig) {
       // Accesses context
       const context = prepareBaseTemplateContext();
-      _.assignIn(context, outputConfig.context);
+      Object.assign(context, outputConfig.context);
 
       // Prepares config attributes related to template filepath
       const templatePath = outputConfig.template;
@@ -624,7 +626,7 @@ module.exports = function webFonts(grunt) {
      * @return {Array}
      */
     function optionToArray(val, defVal) {
-      if (_.isUndefined(val)) {
+      if (val === undefined) {
         val = defVal;
       }
 
@@ -632,22 +634,11 @@ module.exports = function webFonts(grunt) {
         return [];
       }
 
-      if (!_.isString(val)) {
+      if (typeof val !== 'string') {
         return val;
       }
 
       return val.split(',').map((str) => str.trim());
-    }
-
-    /**
-     * Check if a value exists in an array
-     *
-     * @param {Array} haystack Array to find the needle in
-     * @param {*} needle Value to find
-     * @return {Boolean} Needle was found
-     */
-    function has(haystack, needle) {
-      return haystack.indexOf(needle) !== -1;
     }
 
     /**
@@ -681,17 +672,6 @@ module.exports = function webFonts(grunt) {
      */
     function isSvgFile(filepath) {
       return path.extname(filepath).toLowerCase() === '.svg';
-    }
-
-    /**
-     * Check whether file is link or not
-     *
-     * @param {String} filepath File path
-     * @return {Boolean}
-     */
-    function isFsLink(filepath) {
-      const stat = fs.lstatSync(filepath);
-      return stat.isSymbolicLink();
     }
 
     /**
@@ -745,7 +725,7 @@ module.exports = function webFonts(grunt) {
       let fontPathVariableName = defaultOptions.fontFamilyName + '-font-path';
 
       let url;
-      if (font.embeddable && has(defaultOptions.embed, type)) {
+      if (font.embeddable && defaultOptions.embed.includes(type)) {
         url = embedFont(path.join(defaultOptions.dest, filename));
       } else {
         if (defaultOptions.fontPathVariables && stylesheet !== 'css') {
@@ -816,7 +796,7 @@ module.exports = function webFonts(grunt) {
      */
     function renderTemplate(template, context) {
       try {
-        return _.template(template.template)(context);
+        return buildTemplateFn(template.template)(context);
       } catch (error) {
         grunt.fail.fatal('Error while rendering template ' + template.filename + ': ' + error.message);
       }

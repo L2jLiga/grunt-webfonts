@@ -10,7 +10,8 @@
 
 'use strict';
 
-const [path, glob] = [require('path'), require('glob')];
+const glob = require('glob');
+const path = require('path');
 
 /**
  * Unicode Private Use Area start.
@@ -31,6 +32,7 @@ const fontsSrcsMap = {
     {
       ext: '.eot?#iefix',
       format: 'embedded-opentype',
+      embeddable: false,
     },
   ],
   woff: [
@@ -62,6 +64,7 @@ const fontsSrcsMap = {
     {
       ext: '.svg#{fontBaseName}',
       format: 'svg',
+      embeddable: false,
     },
   ],
 };
@@ -74,6 +77,7 @@ const cssFilePrefixes = {
   _default: '',
   sass: '_',
   scss: '_',
+  styl: '',
 };
 
 /**
@@ -82,6 +86,8 @@ const cssFilePrefixes = {
  */
 const fontSrcSeparators = {
   _default: ',\n\t\t',
+  sass: ',\n\t\t',
+  scss: ',\n\t\t',
   styl: ', ',
 };
 

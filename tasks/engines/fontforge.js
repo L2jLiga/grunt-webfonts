@@ -17,7 +17,7 @@ const exec = require('child_process').exec;
 const chalk = require('chalk');
 const wf = require('../util/util');
 
-module.exports = function(options, allDone) {
+module.exports = function fontForgeEngine(options, allDone) {
   const logger = options.logger;
 
   // Copy source files to temporary directory
