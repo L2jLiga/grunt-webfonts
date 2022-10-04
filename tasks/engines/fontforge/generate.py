@@ -7,6 +7,7 @@ import json
 import re
 from subprocess import call
 from distutils.spawn import find_executable
+import shlex
 
 args = json.load(sys.stdin)
 
@@ -98,7 +99,7 @@ generate(fontfile + '.ttf')
 # Hint the TTF file
 # ttfautohint is optional
 if args['autoHint'] and find_executable('ttfautohint'):
-    call('ttfautohint --symbol --fallback-script=latn --no-info "%(font)s.ttf" "%(font)s-hinted.ttf" && mv "%(font)s-hinted.ttf" "%(font)s.ttf"' % {'font': fontfile}, shell=False)
+    call(shlex.split('ttfautohint --symbol --fallback-script=latn --no-info "%(font)s.ttf" "%(font)s-hinted.ttf" && mv "%(font)s-hinted.ttf" "%(font)s.ttf"' % {'font': fontfile}))
     f = fontforge.open(fontfile + '.ttf')
 
 # SVG
@@ -132,7 +133,7 @@ else:
 # EOT
 if 'eot' in args['types']:
     # eotlitetool.py script to generate IE7-compatible .eot fonts
-    call('python "%(path)s/../../bin/eotlitetool.py" "%(font)s.ttf" --output "%(font)s.eot"' % {'path': scriptPath, 'font': fontfile}, shell=False)
+    call(shlex.split('python "%(path)s/../../bin/eotlitetool.py" "%(font)s.ttf" --output "%(font)s.eot"' % {'path': scriptPath, 'font': fontfile}))
 
 # Delete TTF if not needed
 if ('ttf' not in args['types']) and woff2_generated:
