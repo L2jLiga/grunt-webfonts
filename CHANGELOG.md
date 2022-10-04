@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [4.0.3]
+### Fixed
+- fixed python script (#36, issue #35)
+
 ## [4.0.2]
 ### Changed
 - Removed `mkdirp` dependency, use `fs.mkdirSync` instead
@@ -134,7 +138,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + FontForge engine
 + Tests (because they didn't work correctly)
 
-[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.2...HEAD
+[Unreleased]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.3...HEAD
+[4.0.2]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/L2jLiga/grunt-webfonts/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/L2jLiga/grunt-webfonts/compare/v3.0.1...v4.0.0
