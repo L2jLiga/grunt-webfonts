@@ -7,13 +7,13 @@
 
 Generate custom icon webfonts from SVG files via Grunt. Inspired by [grunt-webfont](https://github.com/sapegin/grunt-webfont).
 
-This task will make all you need to use font-face icon on your website: font in all needed formats, CSS/Sass/Less/Stylus and HTML demo page.
+This task will make all you need to use font-face icons on your website: font in all needed formats, CSS/Sass/Less/Stylus, and HTML demo page.
 
 ## Features
 
 * Grunt >= 1.0.0
 * Newest dependencies versions
-* Works on Mac, Windows and Linux.
+* Works on Mac, Windows, and Linux.
 * Very flexible.
 * Supports all web font formats: WOFF, WOFF2, EOT, TTF and SVG.
 * Semantic: uses [Unicode private use area](http://bit.ly/ZnkwaT).
@@ -94,7 +94,7 @@ Add somewhere in your `Gruntfile.js`:
 grunt.loadNpmTasks('grunt-webfonts');
 ```
 
-Inside your `Gruntfile.js` file add a section named `webfont`. See Parameters section below for details.
+Inside your `Gruntfile.js` file add a section named `webfont`. See the Parameters section below for details.
 
 
 ### Parameters
@@ -115,7 +115,7 @@ Directory for resulting files.
 
 Type: `string` Default: _`dest` value_
 
-Directory for resulting CSS files (if different than font directory). You can also define `destScss`, `destSass`, `destLess` and `destStyl` to specify a directory per stylesheet type.
+Directory for resulting CSS files (if different than font directory). You can also define `destScss`, `destSass`, `destLess`, and `destStyl` to specify a directory per stylesheet type.
 
 #### Options
 
@@ -157,7 +157,7 @@ options: {
 
 Type: `boolean` Default: `true`
 
-Append font file names with unique string to flush browser cache when you update your icons.
+Append font file names with unique strings to flush the browser cache when you update your icons.
 
 #### skipLinks
 
@@ -175,7 +175,7 @@ List of styles to be added to CSS files: `font` (`font-face` declaration), `icon
 
 Type: `string|array` Default: `'eot,woff,ttf'`, available: `'eot,woff2,woff,ttf,svg'`
 
-Font files types to generate.
+Font file types to generate.
 
 #### order
 
@@ -226,7 +226,7 @@ options: {
 
 Some extra data is available for you in templates:
 
-* `hash`: a unique string to flush browser cache. Available even if `hashes` option is `false`.
+* `hash`: a unique string to flush the browser cache. Available even if the `hashes` option is `false`.
 
 * `fontRawSrcs`: array of font-face’s src values not merged to a single line:
 
@@ -263,7 +263,7 @@ options: {
 
 Type: `array` Default: `['css']` or extension of `template`
 
-Stylesheet type. Can be `css`, `sass`, `scss` or `less`. If `sass` or `scss` is used, `_` will prefix the file (so it can be a used as a partial). You can define just `stylesheet` if you are generating just one type.
+Stylesheet type. Can be `css`, `sass`, `scss`, or `less`. If `sass` or `scss` is used, `_` will prefix the file (so it can be used as a partial). You can define just `stylesheet` if you are generating just one type.
 
 #### relativeFontPath
 
@@ -275,7 +275,7 @@ Custom font path. Will be used instead of `destCss` *in* CSS file. Useful with C
 
 Type: `boolean` Default: `false`
 
-Create font-path variables for `less`, `scss` and `sass` files. Can be used to override the `relativeFontPath`
+Create font-path variables for `less`, `scss`, and `sass` files. Can be used to override the `relativeFontPath`
 in custom preprocessor tasks or configs.
 
 The variable name is a combination of the `font` name appended with `-font-path`.
@@ -325,7 +325,7 @@ If there are more file types in `types` option they will be included as usual `u
 
 Type: `boolean` Default: `false`
 
-If `true` the generated font files and stylesheets will be generated with opentype ligature features. The character sequences to be replaced by the ligatures are determined by the file name (without extension) of the original SVG.
+If `true` the generated font files and stylesheets will be generated with OpenType ligature features. The character sequences to be replaced by the ligatures are determined by the file name (without extension) of the original SVG.
 
 For example, you have a heart icon in `love.svg` file. The HTML `<h1>I <span class="ligature-icons">love</span> you!</h1>` will be rendered as `I ♥ you!`.
 
@@ -333,7 +333,7 @@ For example, you have a heart icon in `love.svg` file. The HTML `<h1>I <span cl
 
 Type: `function` Default: `path.basename`
 
-You can use this function to change how file names translates to class names (the part after `icon_` or `icon-`). By default it’s a name of a file.
+You can use this function to change how file names translate to class names (the part after `icon_` or `icon-`). By default, it’s a name of a file.
 
 For example you can group your icons into several folders and add folder name to class name:
 
@@ -350,7 +350,7 @@ options: {
 
 Type: `boolean` Default: `false`
 
-If `true` task will not be ran. In example, you can skip task on Windows (becase of difficult installation):
+If `true` task will not be run. For example, you can skip tasks on Windows (because of difficult installation):
 
 ```javascript
 options: {
@@ -360,9 +360,9 @@ options: {
 
 #### engine
 
-Type: `string` Default: `fontforge`
+Type: `string` Default: `node`
 
-Font rendering engine: `fontforge` or `node`. See comparison in [Available Engines](#available-engines) section above.
+Font rendering engine: `fontforge` or `node`. See the comparison in the [Available Engines](#available-engines) section above.
 
 #### ie7
 
@@ -421,7 +421,7 @@ Enables font auto hinting using `ttfautohint`.
 
 Type: `number` Default: `10e12`
 
-Setup SVG path rounding.
+Set up SVG path rounding.
 
 #### fontHeight
 
@@ -451,7 +451,7 @@ The font descent. The descent should be a positive value. The ascent formula is:
 
 Type: `function` Default: `null`
 
-Allows for a callback to be called when the task has completed and passes in the filename of the generated font, an array of the various font types created, an array of all the glyphs created and the hash used to flush browser cache.
+Allows for a callback to be called when the task has been completed and passes in the filename of the generated font, an array of the various font types created, an array of all the glyphs created, and the hash used to flush the browser cache.
 
 ```javascript
 options: {
@@ -473,10 +473,10 @@ Each entry in `customOutputs` should be an object with the following parameters:
 * `dest` - (`string`) the path to the destination where you want the resulting file to live.
 * `context` \[optional\] - (`object`) a hash of values to pass into the context of the template
 
-At compile-time each template will have access to the same context as the compile-time environment of `htmlDemoTemplate` (as extended by the `context` object, if provided. See config-example below.
+At compile-time, each template will have access to the same context as the compile-time environment of `htmlDemoTemplate` (as extended by the `context` object, if provided. See the config example below.
 
 #### execMaxBuffer
- If you get stderr maxBuffer exceeded warning message, engine probably logged a lot of warning messages. To see this warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by this option. Default value is `1024 * 200`
+ If you get stderr maxBuffer exceeded warning message, the engine probably logged a lot of warning messages. To see these warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by this option. Default value is `1024 * 200`
 
 ### Config Examples
 
@@ -491,7 +491,7 @@ webfont: {
 }
 ```
 
-#### Custom font name, fonts and CSS in different folders
+#### Custom font name, fonts, and CSS in different folders
 
 ```javascript
 webfont: {
@@ -630,10 +630,10 @@ And finally, the third, for `icon-web-home.html`, a file that has access to the 
 
 ## CSS Preprocessors Caveats
 
-You can change CSS file syntax using `stylesheet` option (see above). It change file extension (so you can specify any) with some tweaks. Replace all comments with single line comments (which will be removed after compilation).
+You can change CSS file syntax using `stylesheet` option (see above). It changes file extension (so you can specify any) with some tweaks. Replace all comments with single-line comments (which will be removed after compilation).
 
 ### Dynamic font-path
-You can enable the `fontPathVariables` in combination with `relativeFontPath` to create a overridable font-path.
+You can enable the `fontPathVariables` in combination with `relativeFontPath` to create an overridable font-path.
 
 For example scss:
 ```scss
@@ -651,7 +651,7 @@ $icons-font-path : "/relativeFontPath/" !default;
 
 ### Sass
 
-If `stylesheet` option is `sass` or `scss`, `_` will prefix the file (so it can be a used as a partial).
+If `stylesheet` option is `sass` or `scss`, `_` will prefix the file (so it can be used as a partial).
 
 ### Less
 
@@ -676,7 +676,7 @@ Firefox doesn’t allow cross-domain fonts: [Specifications](http://www.w3.org/T
 #### Using the node engine
 
 * Certain SVG's are not supported. See the [svg2ttf](https://github.com/fontello/svg2ttf) project which is used to convert from SVG to TTF (which is then converted forward to WOFF and WOFF2).
-* `autoHint` also adjusts the font file and can cause your font to look different to the SVG, so you could try switching it off (though it may make windows view of the font worse).
+* `autoHint` also adjusts the font file and can cause your font to look different to the SVG, so you could try switching it off (though it may make Windows view of the font worse).
 
 #### Using fontforge
 
@@ -684,8 +684,8 @@ Check the following...
 
 * Your paths are clockwise. Anti-clockwise paths may cause fills to occur differently.
 * Your paths are not overlapping. Overlapping paths will cause one of the areas to be inverted rather than combined. Use an editor to union your two paths together.
-* `autoHint` also adjusts the font file and can cause your font to look different to the SVG, so you could try switching it off (though it may make windows view of the font worse).
-* If you get stderr maxBuffer exceeded warning message, fontforge probably logged a lot of warning messages. To see this warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by [execMaxBuffer](#execMaxBuffer).
+* `autoHint` also adjusts the font file and can cause your font to look different from the SVG, so you could try switching it off (though it may make Windows view of the font worse).
+* If you get stderr maxBuffer exceeded warning message, fontforge probably logged a lot of warning messages. To see these warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by [execMaxBuffer](#execMaxBuffer).
 
 ## Changelog
 
@@ -693,4 +693,4 @@ The changelog can be found on the [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-The MIT License, see the included [License.md](License.md) file.
+For the MIT License, see the included [License.md](License.md) file.
