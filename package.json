@@ -1,5 +1,5 @@
 {
-  "version": "4.0.3",
+  "version": "5.0.0",
   "name": "grunt-webfonts",
   "description": "SVG to webfont converter for Grunt",
   "homepage": "https://github.com/L2jLiga/grunt-webfonts",
@@ -9,7 +9,7 @@
     "lint": "grunt eslint"
   },
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=16.0.0"
   },
   "files": [
     "tasks/**"
@@ -22,19 +22,19 @@
   "dependencies": {
     "async": "^3.2.2",
     "chalk": "^4.1.2",
-    "glob": "^8.0.3",
+    "glob": "~7.1.7",
     "lodash": "^4.17.21",
     "svg2ttf": "^6.0.3",
     "svgicons2svgfont": "^12.0.0",
     "temp": "^0.9.4",
     "ttf2eot": "^3.0.0",
     "ttf2woff": "^3.0.0",
-    "ttf2woff2": "^4.0.4"
+    "ttf2woff2": "^5.0.0"
   },
   "devDependencies": {
     "@types/grunt": "^0.4.27",
     "@types/lodash": "^4.14.177",
-    "@types/node": "^12.20.37",
+    "@types/node": "^16.18.59",
     "eslint": "^8.2.0",
     "grunt": "^1.4.1",
     "grunt-cli": "^1.4.3",
