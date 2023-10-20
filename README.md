@@ -2,7 +2,6 @@
 [![npm version](https://badge.fury.io/js/grunt-webfonts.svg?colorB=brightgreen)](https://www.npmjs.com/package/grunt-webfonts)
 [![npm](https://img.shields.io/npm/dm/grunt-webfonts.svg?colorB=brightgreen)](https://www.npmjs.com/package/grunt-webfonts)
 [![node](https://img.shields.io/node/v/grunt-webfonts.svg?colorB=brightgreen)](https://www.npmjs.com/package/grunt-webfonts)
-[![Dependency Status](https://img.shields.io/david/L2jLiga/grunt-webfonts.svg)](https://david-dm.org/L2jLiga/grunt-webfonts)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 Generate custom icon webfonts from SVG files via Grunt. Inspired by [grunt-webfont](https://github.com/sapegin/grunt-webfont).

@@ -10,10 +10,10 @@
  */
 
 'use strict';
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const temp = require('temp');
-const exec = require('child_process').exec;
+const exec = require('node:child_process').exec;
 const chalk = require('chalk');
 const wf = require('../util/util');
 

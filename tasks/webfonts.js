@@ -10,12 +10,12 @@
  */
 
 'use strict';
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const async = require('async');
 const glob = require('glob');
 const chalk = require('chalk');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const ttf2woff2 = require('ttf2woff2');
 const buildTemplateFn = require('lodash/template');
 

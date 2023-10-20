@@ -11,7 +11,7 @@
 'use strict';
 
 const glob = require('glob');
-const path = require('path');
+const path = require('node:path');
 
 /**
  * Unicode Private Use Area start.

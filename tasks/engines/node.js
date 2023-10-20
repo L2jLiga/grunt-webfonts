@@ -10,11 +10,11 @@
  */
 
 'use strict';
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const async = require('async');
 const temp = require('temp');
-const exec = require('child_process').exec;
+const exec = require('node:child_process').exec;
 const SVGIcons2SVGFontStream = require('svgicons2svgfont');
 const svg2ttf = require('svg2ttf');
 const ttf2eot = require('ttf2eot');
@@ -84,7 +84,7 @@ module.exports = function nodeEngine(o, allDone) {
 
     woff2(done) {
       // Will be converted from TTF later
-      done();
+      getFont('ttf', () => done());
     },
 
     eot(done) {
@@ -97,14 +97,9 @@ module.exports = function nodeEngine(o, allDone) {
     },
   };
 
-  const steps = [];
-
   // Font types
-  const typesToGenerate = o.types.slice();
-
-  if (o.types.indexOf('woff2') !== -1 && o.types.indexOf('ttf') === -1) typesToGenerate.push('ttf');
-
-  typesToGenerate.forEach((type) => {
+  const steps = [];
+  o.types.forEach((type) => {
     steps.push(createFontWriter(type));
   });
 
