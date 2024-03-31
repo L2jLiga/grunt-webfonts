@@ -141,6 +141,7 @@ module.exports = function webFonts(grunt) {
       ie7: options.ie7 === true,
       centerHorizontally: options.centerHorizontally === true,
       normalize: options.normalize === true,
+      zerowidth: options.zerowidth || [],
       round: options.round !== undefined ? options.round : 10e12,
       fontHeight: options.fontHeight !== undefined ? options.fontHeight : 512,
       descent: options.descent !== undefined ? options.descent : 64,

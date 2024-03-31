@@ -74,6 +74,9 @@ for dirname, dirnames, filenames in os.walk(args['inputDir']):
 
             if args['normalize']:
                 glyph.left_side_bearing = glyph.right_side_bearing = 0
+            elif name[1:] in args['zerowidth']:
+                glyph.left_side_bearing = glyph.right_side_bearing = 0
+                glyph.width = 0
             else:
                 glyph.width = args['fontHeight']
 
