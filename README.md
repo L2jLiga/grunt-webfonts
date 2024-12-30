@@ -411,6 +411,15 @@ Type: `boolean` Default: `true`
 
 Enables font auto hinting using `ttfautohint`.
 
+#### zerowidth
+
+Type: `string[]` Default `[]`
+
+Defines array of characters that should be rendered with no width or side bearings.hat should be rendered with no width or side bearings.
+The relevant SVG file(s) still need to exist, but a `0` wide viewport object should suffice, so long as it has some simple vertical path inside to parse.
+
+See [#45]
+
 #### round
 
 Type: `number` Default: `10e12`
@@ -708,3 +717,4 @@ For the MIT License, see the included [LICENSE] file.
 [svg2ttf]: https://github.com/fontello/svg2ttf
 [Bugzilla Ticket]: https://bugzilla.mozilla.org/show_bug.cgi?id=604421
 [How to fix it]: https://coderwall.com/p/v4uwyq
+[#45]: https://github.com/L2jLiga/grunt-webfonts/pull/45
