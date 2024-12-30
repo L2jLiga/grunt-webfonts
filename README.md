@@ -1,4 +1,5 @@
 # SVG to webfont converter for Grunt
+
 [![npm version](https://badge.fury.io/js/grunt-webfonts.svg?colorB=brightgreen)](https://www.npmjs.com/package/grunt-webfonts)
 [![npm](https://img.shields.io/npm/dm/grunt-webfonts.svg?colorB=brightgreen)](https://www.npmjs.com/package/grunt-webfonts)
 [![node](https://img.shields.io/node/v/grunt-webfonts.svg?colorB=brightgreen)](https://www.npmjs.com/package/grunt-webfonts)
@@ -10,24 +11,24 @@ This task will make all you need to use font-face icons on your website: font in
 
 ## Features
 
-* Grunt >= 1.0.0
-* Newest dependencies versions
-* Works on Mac, Windows, and Linux.
-* Very flexible.
-* Supports all web font formats: WOFF, WOFF2, EOT, TTF and SVG.
-* Semantic: uses [Unicode private use area](http://bit.ly/ZnkwaT).
-* [Cross-browser](http://www.fontspring.com/blog/further-hardening-of-the-bulletproof-syntax/): IE8+.
-* BEM or Bootstrap output CSS style.
-* CSS preprocessors support.
-* Data:uri embedding.
-* Ligatures.
-* HTML preview.
-* Custom templates.
-
+- Grunt >= 1.0.0
+- Newest dependencies versions
+- Works on Mac, Windows, and Linux.
+- Very flexible.
+- Supports all web font formats: WOFF, WOFF2, EOT, TTF and SVG.
+- Semantic: uses [Unicode private use area](http://bit.ly/ZnkwaT).
+- [Cross-browser](http://www.fontspring.com/blog/further-hardening-of-the-bulletproof-syntax/): IE8+.
+- BEM or Bootstrap output CSS style.
+- CSS preprocessors support.
+- Data:uri embedding.
+- Ligatures.
+- HTML preview.
+- Custom templates.
 
 ## Installation
 
-This plugin requires Grunt >= 1.0.0. Note that `ttfautohint` is optional, but your generated font will not be properly hinted if it’s not installed. And make sure you don’t use `ttfautohint` 0.97 because that version won’t work.
+This plugin requires Grunt >= 1.0.0. Note that `ttfautohint` is optional, but your generated font will not be properly hinted if it’s not installed.
+And make sure you don’t use `ttfautohint` 0.97 because that version won’t work.
 
 ### OS X
 
@@ -36,9 +37,9 @@ brew install ttfautohint fontforge --with-python
 npm install grunt-webfonts --save-dev
 ```
 
-*You may need to use `sudo` for `brew`, depending on your setup.*
+_You may need to use `sudo` for `brew`, depending on your setup._
 
-*`fontforge` isn’t required for `node` engine (see below).*
+_`fontforge` isn’t required for `node` engine (see below)._
 
 ### Linux
 
@@ -47,7 +48,7 @@ sudo apt-get install fontforge ttfautohint
 npm install grunt-webfonts --save-dev
 ```
 
-*`fontforge` isn’t required for the `node` engine (see [below](#available-engines)).*
+_`fontforge` isn’t required for the `node` engine (see [below](#available-engines))._
 
 ### Windows
 
@@ -58,10 +59,11 @@ npm install grunt-webfonts --save-dev
 Then [install `ttfautohint`](http://www.freetype.org/ttfautohint/#download) (optional).
 
 Then install `fontforge`.
-* Download and install [fontforge](http://fontforge.github.io/en-US/downloads/windows/).
-* Add `C:\Program Files (x86)\FontForgeBuilds\bin` to your `PATH` environment variable.
 
-*`fontforge` isn’t required for the `node` engine (see [below](#available-engines)).*
+- Download and install [fontforge](http://fontforge.github.io/en-US/downloads/windows/).
+- Add `C:\Program Files (x86)\FontForgeBuilds\bin` to your `PATH` environment variable.
+
+_`fontforge` isn’t required for the `node` engine (see [below](#available-engines))._
 
 ## Available Engines
 
@@ -71,30 +73,29 @@ There are two font rendering engines available. See also `engine` option below.
 
 #### Pros
 
-* No external dependencies (except optional `ttfautohint`).
-* Works on all platforms.
+- No external dependencies (except optional `ttfautohint`).
+- Works on all platforms.
 
 ### fontforge
 
 #### Pros
 
-* The best results.
+- The best results.
 
 #### Cons
 
-* You have to install `fontforge`.
-* Really weird bugs sometimes.
+- You have to install `fontforge`.
+- Really weird bugs sometimes.
 
 ## Configuration
 
 Add somewhere in your `Gruntfile.js`:
 
 ```javascript
-grunt.loadNpmTasks('grunt-webfonts');
+grunt.loadNpmTasks("grunt-webfonts");
 ```
 
 Inside your `Gruntfile.js` file add a section named `webfont`. See the Parameters section below for details.
-
 
 ### Parameters
 
@@ -120,15 +121,15 @@ Directory for resulting CSS files (if different than font directory). You can al
 
 All options should be inside `options` object:
 
-``` javascript
+```javascript
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts',
-		options: {
-			...
-		}
-	}
+  icons: {
+    src: 'icons/*.svg',
+    dest: 'build/fonts',
+    options: {
+      // ...
+    }
+  }
 }
 ```
 
@@ -148,7 +149,7 @@ For example, to get the hash to be part of the filenames:
 
 ```js
 options: {
-	fontFilename: 'icons-{hash}'
+  fontFilename: "icons-{hash}";
 }
 ```
 
@@ -200,7 +201,7 @@ For example, your Gruntfile:
 
 ```js
 options: {
-	template: 'my_templates/tmpl.css'
+  template: "my_templates/tmpl.css";
 }
 ```
 
@@ -208,8 +209,8 @@ options: {
 
 ```css
 @font-face {
-	font-family:"<%= fontBaseName %>";
-	...
+  font-family:"<%= fontBaseName %>";
+  // ...
 }
 ...
 ```
@@ -218,30 +219,20 @@ options: {
 
 ```json
 {
-	"baseClass": "icon",
-	"classPrefix": "icon_"
+  "baseClass": "icon",
+  "classPrefix": "icon_"
 }
 ```
 
 Some extra data is available for you in templates:
 
-* `hash`: a unique string to flush the browser cache. Available even if the `hashes` option is `false`.
+- `hash`: a unique string to flush the browser cache. Available even if the `hashes` option is `false`.
 
-* `fontRawSrcs`: array of font-face’s src values not merged to a single line:
+- `fontRawSrcs`: array of font-face’s src values not merged to a single line:
 
+```javascript
+[['url("icons.eot")'], ['url("icons.eot?#iefix") format("embedded-opentype")', 'url("icons.woff") format("woff")', 'url("icons.ttf") format("truetype")']];
 ```
-[
-	[
-		'url("icons.eot")'
-	],
-	[
-		'url("icons.eot?#iefix") format("embedded-opentype")',
-		'url("icons.woff") format("woff")',
-		'url("icons.ttf") format("truetype")'
-	]
-]
-```
-
 
 #### templateOptions
 
@@ -249,12 +240,12 @@ Type: `object` Default: `{}`
 
 Extends/overrides CSS template or syntax’s JSON file. Allows custom class names in default css templates.
 
-``` javascript
+```javascript
 options: {
-	templateOptions: {
-		baseClass: 'glyph-icon',
-		classPrefix: 'glyph_'
-	}
+  templateOptions: {
+    baseClass: 'glyph-icon',
+    classPrefix: 'glyph_'
+  }
 }
 ```
 
@@ -262,13 +253,14 @@ options: {
 
 Type: `array` Default: `['css']` or extension of `template`
 
-Stylesheet type. Can be `css`, `sass`, `scss`, or `less`. If `sass` or `scss` is used, `_` will prefix the file (so it can be used as a partial). You can define just `stylesheet` if you are generating just one type.
+Stylesheet type. Can be `css`, `sass`, `scss`, or `less`. If `sass` or `scss` is used, `_` will prefix the file (so it can be used as a partial).
+You can define just `stylesheet` if you are generating just one type.
 
 #### relativeFontPath
 
 Type: `string` Default: `null`
 
-Custom font path. Will be used instead of `destCss` *in* CSS file. Useful with CSS preprocessors.
+Custom font path. Will be used instead of `destCss` _in_ CSS file. Useful with CSS preprocessors.
 
 #### fontPathVariables
 
@@ -279,12 +271,12 @@ in custom preprocessor tasks or configs.
 
 The variable name is a combination of the `font` name appended with `-font-path`.
 
-
 #### version
 
 Type: `string` Default: `false`
 
-Version number added to `.ttf` version of the font (FontForge Engine only). Also used in the heading of the default demo.html template. Useful to align with the version of other assets that are part of a larger system.
+Version number added to `.ttf` version of the font (FontForge Engine only). Also used in the heading of the default demo.html template.
+Useful to align with the version of other assets that are part of a larger system.
 
 #### htmlDemo
 
@@ -314,7 +306,7 @@ Custom demo HTML demo path (requires `htmlDemo` option to be true).
 
 Type: `string|array` Default: `false`
 
-If `true` embeds WOFF (*only WOFF*) file as data:uri.
+If `true` embeds WOFF (_only WOFF_) file as data:uri.
 
 IF `ttf` or `woff` or `ttf,woff` embeds TTF or/and WOFF file.
 
@@ -324,7 +316,8 @@ If there are more file types in `types` option they will be included as usual `u
 
 Type: `boolean` Default: `false`
 
-If `true` the generated font files and stylesheets will be generated with OpenType ligature features. The character sequences to be replaced by the ligatures are determined by the file name (without extension) of the original SVG.
+If `true` the generated font files and stylesheets will be generated with OpenType ligature features.
+The character sequences to be replaced by the ligatures are determined by the file name (without extension) of the original SVG.
 
 For example, you have a heart icon in `love.svg` file. The HTML `<h1>I <span class="ligature-icons">love</span> you!</h1>` will be rendered as `I ♥ you!`.
 
@@ -338,10 +331,10 @@ For example you can group your icons into several folders and add folder name to
 
 ```js
 options: {
-	rename: function(name) {
-		// .icon_entypo-add, .icon_fontawesome-add, etc.
-		return [path.basename(path.dirname(name)), path.basename(name)].join('-');
-	}
+  rename: function(name) {
+    // .icon_entypo-add, .icon_fontawesome-add, etc.
+    return [path.basename(path.dirname(name)), path.basename(name)].join('-');
+  }
 }
 ```
 
@@ -353,7 +346,7 @@ If `true` task will not be run. For example, you can skip tasks on Windows (beca
 
 ```javascript
 options: {
-	skip: require('os').platform() === 'win32'
+  skip: require("os").platform() === "win32";
 }
 ```
 
@@ -381,7 +374,8 @@ Font rendering engine: `node`.
 
 Type: `boolean` Default: `false`
 
-When using the fontforge engine, if false, glyphs will be generated with a fixed width equal to fontHeight. In most cases, this will produce an extra blank space for each glyph. If set to true, no extra space will be generated. Each glyph will have a width that matches its boundaries.
+When using the fontforge engine, if false, glyphs will be generated with a fixed width equal to fontHeight.
+In most cases, this will produce an extra blank space for each glyph. If set to true, no extra space will be generated. Each glyph will have a width that matches its boundaries.
 
 #### startCodepoint
 
@@ -397,13 +391,14 @@ Specific codepoints to use for certain glyphs. Any glyphs not specified in the c
 
 ```javascript
 options: {
-	codepoints: {
-		single: 0xE001
-	}
+  codepoints: {
+    single: 0xe001;
+  }
 }
 ```
 
 #### codepointsFile
+
 Type: `string` Default: `null`
 
 Uses and Saves the codepoint mapping by name to this file.
@@ -432,11 +427,12 @@ The output font height.
 
 Type: `string` Default: _`font` value_
 
-If you’d like your generated fonts to have a name that’s different than the `font` value, you can specify this as a string. This will allow a unique display name within design authoring tools when installing fonts locally. For example, your font’s name could be `GitHub Octicons` with a filename of `octicons.ttf`.
+If you’d like your generated fonts to have a name that’s different than the `font` value, you can specify this as a string.
+This will allow a unique display name within design authoring tools when installing fonts locally. For example, your font’s name could be `GitHub Octicons` with a filename of `octicons.ttf`.
 
 ```javascript
 options: {
-	fontFamilyName: 'GitHub Octicons',
+  fontFamilyName: 'GitHub Octicons',
 }
 ```
 
@@ -450,13 +446,14 @@ The font descent. The descent should be a positive value. The ascent formula is:
 
 Type: `function` Default: `null`
 
-Allows for a callback to be called when the task has been completed and passes in the filename of the generated font, an array of the various font types created, an array of all the glyphs created, and the hash used to flush the browser cache.
+Allows for a callback to be called when the task has been completed and passes in the filename of the generated font, an array of the various font types created, an array of all the glyphs created,
+and the hash used to flush the browser cache.
 
 ```javascript
 options: {
-	callback: function(filename, types, glyphs, hash) {
-		// ...
-	}
+  callback: function(filename, types, glyphs, hash) {
+    // ...
+  }
 }
 ```
 
@@ -468,14 +465,17 @@ Allows for custom content to be generated and output in the same way as `htmlDem
 
 Each entry in `customOutputs` should be an object with the following parameters:
 
-* `template` - (`string`) the path to the underscore-template you wish to use.
-* `dest` - (`string`) the path to the destination where you want the resulting file to live.
-* `context` \[optional\] - (`object`) a hash of values to pass into the context of the template
+- `template` - (`string`) the path to the underscore-template you wish to use.
+- `dest` - (`string`) the path to the destination where you want the resulting file to live.
+- `context` \[optional\] - (`object`) a hash of values to pass into the context of the template
 
-At compile-time, each template will have access to the same context as the compile-time environment of `htmlDemoTemplate` (as extended by the `context` object, if provided. See the config example below.
+At compile-time, each template will have access to the same context as the compile-time environment of `htmlDemoTemplate` (as extended by the `context` object, if provided.
+See the config example below.
 
 #### execMaxBuffer
- If you get stderr maxBuffer exceeded warning message, the engine probably logged a lot of warning messages. To see these warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by this option. Default value is `1024 * 200`
+
+If you get stderr maxBuffer exceeded warning message, the engine probably logged a lot of warning messages. To see these warnings run grunt in verbose mode `grunt --verbose`.
+To go over this warning you can try to increase buffer size by this option. Default value is `1024 * 200`
 
 ### Config Examples
 
@@ -483,10 +483,10 @@ At compile-time, each template will have access to the same context as the compi
 
 ```javascript
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts'
-	}
+  icons: {
+    src: 'icons/*.svg',
+    dest: 'build/fonts'
+  }
 }
 ```
 
@@ -494,14 +494,14 @@ webfont: {
 
 ```javascript
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts',
-		destCss: 'build/fonts/css',
-		options: {
-			font: 'ponies'
-		}
-	}
+  icons: {
+    src: 'icons/*.svg',
+    dest: 'build/fonts',
+    destCss: 'build/fonts/css',
+    options: {
+      font: 'ponies'
+    }
+  }
 }
 ```
 
@@ -509,17 +509,17 @@ webfont: {
 
 ```js
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts',
-		options: {
-			syntax: 'bem',
-			templateOptions: {
-				baseClass: 'glyph-icon',
-				classPrefix: 'glyph_'
-			}
-		}
-	}
+  icons: {
+    src: 'icons/*.svg',
+    dest: 'build/fonts',
+    options: {
+      syntax: 'bem',
+      templateOptions: {
+        baseClass: 'glyph-icon',
+        classPrefix: 'glyph_'
+      }
+    }
+  }
 }
 ```
 
@@ -527,15 +527,15 @@ webfont: {
 
 ```javascript
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts',
-		destCss: 'build/styles',
-		options: {
-			stylesheet: 'styl',
-			relativeFontPath: '/build/fonts'
-		}
-	}
+  icons: {
+    src: 'icons/*.svg',
+    dest: 'build/fonts',
+    destCss: 'build/styles',
+    options: {
+      stylesheet: 'styl',
+      relativeFontPath: '/build/fonts'
+    }
+  }
 }
 ```
 
@@ -543,14 +543,13 @@ webfont: {
 
 ```javascript
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts',
-		options: {
-			types: 'woff',
-			embed: true
-		}
-	}
+icons: {
+  src: 'icons/*.svg',
+  dest: 'build/fonts',
+  options: {
+    types: 'woff',
+    embed: true
+  }
 }
 ```
 
@@ -558,26 +557,30 @@ webfont: {
 
 ```javascript
 webfont: {
-	icons: {
-		src: 'icons/*.svg',
-		dest: 'build/fonts',
-		options: {
-			customOutputs: [{
-				template: 'templates/icon-glyph-list-boilerplate.js',
-				dest: 'build/js/icon-glyph-list.js'
-			}, {
-				template: 'templates/icon-glyph-config-boilerplate.json',
-				dest: 'build/js/icon-glyphs.json'
-			}, {
-				template: 'templates/icon-web-home.html',
-				dest: 'build/',
-				context: {
-					homeHeading: 'Your Icon Font',
-					homeMessage: 'The following glyphs are available in this font:'
-				}
-			}]
-		}
-	}
+  icons: {
+    src: 'icons/*.svg',
+    dest: 'build/fonts',
+    options: {
+      customOutputs: [
+        {
+          template: 'templates/icon-glyph-list-boilerplate.js',
+          dest: 'build/js/icon-glyph-list.js'
+        },
+        {
+          template: 'templates/icon-glyph-config-boilerplate.json',
+          dest: 'build/js/icon-glyphs.json'
+        },
+        {
+          template: 'templates/icon-web-home.html',
+          dest: 'build/',
+          context: {
+            homeHeading: 'Your Icon Font',
+            homeMessage: 'The following glyphs are available in this font:'
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -589,16 +592,16 @@ The first, for `icon-glyph-list-boilerplate.js`, a file that outputs a list of i
 // file: icon-glyph-list-boilerplate.js
 
 (function(window) {
-	'use strict';
+  'use strict';
 
-	var iconList = <%= JSON.stringify(glyphs) %>;
-	window.iconList = iconList;
+  var iconList = <%= JSON.stringify(glyphs) %>;
+  window.iconList = iconList;
 }(this));
 ```
 
 The second, for `icon-glyph-config-boilerplate.json`, a file that dumps all JSON data in the current template context.
 
-```
+```template
 // file: icon-glyph-config-boilerplate.json
 
 <%= JSON.stringify(arguments[0], null, '\t') %>
@@ -606,45 +609,49 @@ The second, for `icon-glyph-config-boilerplate.json`, a file that dumps all JSON
 
 And finally, the third, for `icon-web-home.html`, a file that has access to the values provided in the `context` object supplied.
 
-```
+```html
 // file: icon-web-home.html
 
 <!DOCTYPE html>
 <html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <title>Context Test</title>
-    </head>
-    <body>
-        <h1><%= homeHeading %></h1>
-        <p><%= homeMessage %></p>
-        <ul>
-        	<% for (var i = 0; i < glyphs.length; i++) { %>
-        	<li><a href="#"><%= glyphs[i] %></a></li>
-        	<% } %>
-        </ul>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Context Test</title>
+  </head>
+  <body>
+    <h1><%= homeHeading %></h1>
+    <p><%= homeMessage %></p>
+    <ul>
+      <% for (var i = 0; i < glyphs.length; i++) { %>
+      <li><a href="#"><%= glyphs[i] %></a></li>
+      <% } %>
+    </ul>
+  </body>
 </html>
 ```
 
 ## CSS Preprocessors Caveats
 
-You can change CSS file syntax using `stylesheet` option (see above). It changes file extension (so you can specify any) with some tweaks. Replace all comments with single-line comments (which will be removed after compilation).
+You can change CSS file syntax using `stylesheet` option (see above). It changes file extension (so you can specify any) with some tweaks.
+Replace all comments with single-line comments (which will be removed after compilation).
 
 ### Dynamic font-path
+
 You can enable the `fontPathVariables` in combination with `relativeFontPath` to create an overridable font-path.
 
 For example scss:
+
 ```scss
-$icons-font-path : "/relativeFontPath/" !default;
+$icons-font-path: "/relativeFontPath/" !default;
 @font-face {
-	font-family:"icons";
-	src:url($icons-font-path + "icons.eot");
-	src:url($icons-font-path + "icons.eot?#iefix") format("embedded-opentype"),
-		url($icons-font-path + "icons.woff") format("woff"),
-		url($icons-font-path + "icons.ttf") format("truetype");
-	font-weight:normal;
-	font-style:normal;
+  font-family: "icons";
+  src: url($icons-font-path + "icons.eot");
+  src:
+    url($icons-font-path + "icons.eot?#iefix") format("embedded-opentype"),
+    url($icons-font-path + "icons.woff") format("woff"),
+    url($icons-font-path + "icons.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 ```
 
@@ -660,7 +667,7 @@ The Less mixins then may be used like so:
 
 ```css
 .profile-button {
-	.icon-profile;
+  .icon-profile;
 }
 ```
 
@@ -668,28 +675,36 @@ The Less mixins then may be used like so:
 
 ### I have problems displaying the font in Firefox
 
-Firefox doesn’t allow cross-domain fonts: [Specifications](http://www.w3.org/TR/css3-fonts/#font-fetching-requirements), [Bugzilla Ticket](https://bugzilla.mozilla.org/show_bug.cgi?id=604421), [How to fix it](https://coderwall.com/p/v4uwyq).
+Firefox doesn’t allow cross-domain fonts: [Specifications], [Bugzilla Ticket], [How to fix it].
 
 ### My images are getting corrupted
 
 #### Using the node engine
 
-* Certain SVG's are not supported. See the [svg2ttf](https://github.com/fontello/svg2ttf) project which is used to convert from SVG to TTF (which is then converted forward to WOFF and WOFF2).
-* `autoHint` also adjusts the font file and can cause your font to look different to the SVG, so you could try switching it off (though it may make Windows view of the font worse).
+- Certain SVG's are not supported. See the [svg2ttf] project which is used to convert from SVG to TTF (which is then converted forward to WOFF and WOFF2).
+- `autoHint` also adjusts the font file and can cause your font to look different to the SVG, so you could try switching it off (though it may make Windows view of the font worse).
 
 #### Using fontforge
 
 Check the following...
 
-* Your paths are clockwise. Anti-clockwise paths may cause fills to occur differently.
-* Your paths are not overlapping. Overlapping paths will cause one of the areas to be inverted rather than combined. Use an editor to union your two paths together.
-* `autoHint` also adjusts the font file and can cause your font to look different from the SVG, so you could try switching it off (though it may make Windows view of the font worse).
-* If you get stderr maxBuffer exceeded warning message, fontforge probably logged a lot of warning messages. To see these warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by [execMaxBuffer](#execMaxBuffer).
+- Your paths are clockwise. Anti-clockwise paths may cause fills to occur differently.
+- Your paths are not overlapping. Overlapping paths will cause one of the areas to be inverted rather than combined. Use an editor to union your two paths together.
+- `autoHint` also adjusts the font file and can cause your font to look different from the SVG, so you could try switching it off (though it may make Windows view of the font worse).
+- If you get stderr maxBuffer exceeded warning message, fontforge probably logged a lot of warning messages.
+  To see these warnings run grunt in verbose mode `grunt --verbose`. To go over this warning you can try to increase buffer size by [execMaxBuffer](#execMaxBuffer).
 
 ## Changelog
 
-The changelog can be found on the [CHANGELOG.md](CHANGELOG.md).
+The changelog can be found on the [CHANGELOG.md].
 
 ## License
 
-For the MIT License, see the included [License.md](License.md) file.
+For the MIT License, see the included [LICENSE] file.
+
+[CHANGELOG.MD]: CHANGELOG.md
+[LICENSE]: LICENSE
+[Specifications]: http://www.w3.org/TR/css3-fonts/#font-fetching-requirements
+[svg2ttf]: https://github.com/fontello/svg2ttf
+[Bugzilla Ticket]: https://bugzilla.mozilla.org/show_bug.cgi?id=604421
+[How to fix it]: https://coderwall.com/p/v4uwyq
