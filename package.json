@@ -29,7 +29,7 @@
     "temp": "^0.9.4",
     "ttf2eot": "^3.0.0",
     "ttf2woff": "^3.0.0",
-    "ttf2woff2": "^5.0.0"
+    "ttf2woff2": "^8.0.0"
   },
   "devDependencies": {
     "@types/grunt": "^0.4.27",
